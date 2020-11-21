@@ -10,15 +10,6 @@ const NotFoundContainer = styled.div`
   height: 90vh;
   justify-content: center;
 
-  div {
-    display: flex;
-    flex-direction: row-reverse;
-    h1 {
-      text-wrap: none;
-      margin-right: 6vw;
-      position: absolute;
-    }
-
     svg {
       width: 50vw;
       height: 50vh;
@@ -34,10 +25,7 @@ const NotFound: React.FC = () => {
       </Head>
       <Header options={[{ title: 'Home', link: '/' }]} />
       <NotFoundContainer>
-        <div>
-          <h1>404 - Not Found</h1>
-          <NotFoundSVG />
-        </div>
+        <NotFoundSVG />
       </NotFoundContainer>
     </>
   )
