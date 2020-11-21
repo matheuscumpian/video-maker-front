@@ -1,15 +1,24 @@
 import { TypeStatus } from './index'
 
-export interface User {
-  name?: string
-  email?: string
-  password?: string
-  passwordConfirm?: string
-}
-
 export interface AuthParams {
   email: string
   password: string
+}
+
+export interface RegisterParams {
+  email: string
+  name: string
+  password: string
+}
+
+export interface RegisterState extends RegisterParams {
+  error: string
+  status: TypeStatus
+}
+
+export interface User {
+  name?: string
+  email?: string
 }
 
 export interface UserState {
