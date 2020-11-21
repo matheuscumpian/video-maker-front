@@ -5,13 +5,11 @@ import { INITIAL_STATE as user } from './states/auth/index'
 import { configureStore } from '@reduxjs/toolkit'
 
 export interface ApplicationState {
-  loadingBar: boolean
-  user: UserState
+  auth: UserState
 }
 
 export const initialStateApplication: ApplicationState = {
-  loadingBar: false,
-  user
+  auth: user
 }
 
 const logger = store => next => action => {

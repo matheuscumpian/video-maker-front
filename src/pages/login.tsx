@@ -14,6 +14,7 @@ import { useRouter } from 'next/router'
 import { postAuth, reducer as AuthReducer } from '../store/states/auth'
 import { UserState } from '../models/User'
 import { ApplicationState } from '../store'
+import { toast } from 'react-toastify'
 
 export interface LoginProps {
   name?: string
@@ -32,7 +33,7 @@ const validationSchema = Yup.object({
 
 const Login: React.FC<LoginProps> = ({ name }) => {
   const dispatch = useDispatch()
-  const state = useSelector<ApplicationState, UserState>(state => state.user)
+  const state = useSelector<ApplicationState, UserState>(state => state.auth)
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -52,11 +53,21 @@ const Login: React.FC<LoginProps> = ({ name }) => {
         password: values.password
       })
     )
-    // await router.push('/dashboard')
   }
 
   useEffect(() => {
-    console.log(state)
+    if (state.status === 'SUCCESS') {
+      router.push('/dashboard').then(() =>
+        toast.success('😁 Logged in!', {
+          autoClose: 3000,
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true
+        })
+      )
+    }
   }, [state])
 
   return (

@@ -3,13 +3,6 @@ import Head from 'next/head'
 import Axios from '../services/index'
 
 const Dashboard: React.FC = () => {
-  useEffect(() => {
-    Axios.post('/video', {
-      sentence: 'São Paulo Futebol Clube',
-      semantic: 'The history of'
-    }).then(r => console.log(r))
-  }, [])
-
   return (
     <>
       <Head>
