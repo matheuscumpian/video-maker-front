@@ -6,15 +6,13 @@ import jwt from 'jsonwebtoken'
 const INITIAL_STATE: UserState = {
   user: {
     email: '',
-    name: '',
-    password: '',
-    passwordConfirm: ''
+    name: ''
   },
   error: '',
   status: 'NONE'
 }
 
-export const postAuth = createAsyncThunk(
+const postAuth = createAsyncThunk(
   'Auth/postAuth',
   (payload: AuthParams, { rejectWithValue }) =>
     AuthService.post(payload)
@@ -51,7 +49,10 @@ const { actions, reducer } = createSlice({
         console.log('REJECTED')
         return {
           ...state,
-          user: {},
+          user: {
+            email: '',
+            name: ''
+          },
           error: payload.message,
           status: 'ERROR'
         }
@@ -73,4 +74,4 @@ const { actions, reducer } = createSlice({
   }
 })
 
-export { reducer, INITIAL_STATE, actions }
+export { actions, INITIAL_STATE, postAuth, reducer }
