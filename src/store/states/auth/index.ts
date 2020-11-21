@@ -15,7 +15,7 @@ const INITIAL_STATE: UserState = {
 }
 
 export const postAuth = createAsyncThunk(
-  'Auth/post',
+  'Auth/postAuth',
   (payload: AuthParams, { rejectWithValue }) =>
     AuthService.post(payload)
       .then(({ data }) => {
@@ -41,20 +41,31 @@ const { actions, reducer } = createSlice({
         console.log('PENDING')
         return {
           ...state,
+          user: {
+            ...state.user
+          },
           status: 'LOADING'
         }
       })
-      .addCase(postAuth.rejected.type, (state, { payload }: any) => ({
-        ...state,
-        error: payload.message,
-        status: 'ERROR'
-      }))
+      .addCase(postAuth.rejected.type, (state, { payload }: any) => {
+        console.log('REJECTED')
+        return {
+          ...state,
+          user: {},
+          error: payload.message,
+          status: 'ERROR'
+        }
+      })
       .addCase(
         postAuth.fulfilled.type,
         (state, { payload }: PayloadAction<User>) => {
           return {
             ...state,
-            user: { ...state.user, payload },
+            user: {
+              ...state.user,
+              email: payload.email,
+              name: payload.name
+            },
             status: 'SUCCESS'
           }
         }

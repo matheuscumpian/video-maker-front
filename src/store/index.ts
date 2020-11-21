@@ -1,9 +1,8 @@
-import { composeWithDevTools } from '@reduxjs/toolkit/src/devtoolsExtension'
-import { applyMiddleware, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import appReducer from './states'
 import { UserState } from '../models/User'
 import { INITIAL_STATE as user } from './states/auth/index'
+import { configureStore } from '@reduxjs/toolkit'
 
 export interface ApplicationState {
   loadingBar: boolean
@@ -15,7 +14,20 @@ export const initialStateApplication: ApplicationState = {
   user
 }
 
-const configureStore = (preloadedState: ApplicationState) =>
-  createStore(appReducer, preloadedState, applyMiddleware(thunk))
+const logger = store => next => action => {
+  console.group(action.type)
+  console.info('dispatching', action)
+  const result = next(action)
+  console.log('next state', store.getState())
+  console.groupEnd()
+  return result
+}
 
-export const store = configureStore(initialStateApplication)
+const store = configureStore({
+  reducer: appReducer,
+  middleware: [thunk, logger],
+  preloadedState: initialStateApplication,
+  devTools: true
+})
+
+export default store
