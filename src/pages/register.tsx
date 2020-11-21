@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react'
 
-import { Container } from '../styles/pages/Login'
-import Input from '../components/Input/Input'
-import SignUpSVG from '../assets/signup.svg'
-import Header from '../components/Header'
-import Head from 'next/head'
+import * as Yup from 'yup'
 import Button from '../components/Button/Button'
+import Head from 'next/head'
+import Header from '../components/Header'
+import Input from '../components/Input/Input'
 import Link from 'next/link'
 import RobotSVG from '../assets/robot.svg'
+import SignUpSVG from '../assets/signup.svg'
+import { useRouter } from 'next/router'
+import { Container } from '../styles/pages/Login'
 import { toast } from 'react-toastify'
+import { postAuth } from '../store/states/auth'
+import { registerUser } from '../store/states/register'
+import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
-import * as Yup from 'yup'
+import { ApplicationState } from '../store'
+import { RegisterState, UserState } from '../models/User'
 
 export interface LoginProps {
   name?: string
@@ -32,7 +38,18 @@ const validationSchema = Yup.object({
   )
 })
 
-const Register: React.FC<LoginProps> = ({ name }) => {
+const Register: React.FC<LoginProps> = () => {
+  const dispatch = useDispatch()
+  const stateAuth = useSelector<ApplicationState, UserState>(
+    state => state.auth
+  )
+  const stateRegister = useSelector<ApplicationState, RegisterState>(
+    state => state.register
+  )
+  const router = useRouter()
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isValidForm, setIsValidForm] = useState(false)
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -46,19 +63,43 @@ const Register: React.FC<LoginProps> = ({ name }) => {
     validateOnBlur: false
   })
 
-  const [errorMessage, setErrorMessage] = useState('')
-  const [isValidForm, setIsValidForm] = useState(false)
-
   const submitForm = async values => {
-    toast.info('🦄 Register!', {
-      autoClose: 5000,
-      position: 'top-center',
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true
-    })
+    dispatch(
+      registerUser({
+        email: values.email,
+        name: values.name,
+        password: values.password
+      })
+    )
   }
+
+  useEffect(() => {
+    if (stateRegister.status === 'SUCCESS') {
+      setTimeout(() => {
+        dispatch(
+          postAuth({
+            email: formik.values.email,
+            password: formik.values.password
+          })
+        )
+      }, 150)
+    }
+  }, [stateRegister])
+
+  useEffect(() => {
+    if (stateAuth.status === 'SUCCESS') {
+      router.push('/dashboard').then(() => {
+        toast.info('🦄 Register!', {
+          autoClose: 5000,
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true
+        })
+      })
+    }
+  }, [stateAuth])
 
   useEffect(() => {
     if (formik.touched.name && formik.errors.name) {
