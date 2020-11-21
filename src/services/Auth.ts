@@ -1,4 +1,4 @@
-import { AuthParams, User } from '../models/User'
+import { AuthParams, RegisterParams, User } from '../models/User'
 import jwt from 'jsonwebtoken'
 import axios from './index'
 import { AxiosResponse } from 'axios'
@@ -25,8 +25,7 @@ export class AuthService {
 
     return {
       name: token?.name,
-      email: token?.email,
-      password: ''
+      email: token?.email
     }
   }
 
@@ -35,6 +34,18 @@ export class AuthService {
     password
   }: AuthParams): Promise<AxiosResponse<AuthResponse>> {
     return axios.post('/auth', {
+      email,
+      password
+    })
+  }
+
+  static registerUser({
+    name,
+    email,
+    password
+  }: RegisterParams): Promise<AxiosResponse> {
+    return axios.post('/user', {
+      name,
       email,
       password
     })

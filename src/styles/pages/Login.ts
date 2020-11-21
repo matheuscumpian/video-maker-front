@@ -65,6 +65,11 @@ export const Container = styled.div<LoginProps>`
       margin: 0px;
       line-height: 0px;
     }
+
+    svg {
+      height: 22px;
+      width: 22px;
+    }
   }
 
   .inputs {
