@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Head from 'next/head'
-import Axios from '../services/index'
 
 const Dashboard: React.FC = () => {
   return (

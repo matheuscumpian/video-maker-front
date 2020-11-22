@@ -3,16 +3,10 @@ import Head from 'next/head'
 import AOS from 'aos'
 import { Container } from '../styles/pages/Home'
 import Hero from '../components/Hero/Hero'
-import RobotSVG from '../assets/robot.svg'
 import { Container as Row } from '../styles/components/Row/Row'
 import Marketing from '../assets/marketing.svg'
 import Social from '../assets/social.svg'
 import Header from '../components/Header'
-
-const HeroHeader = {
-  logo: RobotSVG,
-  name: 'Auto Video Maker'
-}
 
 const phrasesFirstSection = [
   'Automate your video creation process',
