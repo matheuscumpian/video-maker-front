@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components'
 
 export interface ButtonProps {
   isValid: boolean
+  isLoading: boolean
 }
 
 const StyledButton = styled.button<ButtonProps>`
@@ -10,6 +11,9 @@ const StyledButton = styled.button<ButtonProps>`
   border-radius: 8px;
   border: 0px;
   width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   display: inline-block;
   cursor: pointer;
   color: ${props => props.theme.colors.text};

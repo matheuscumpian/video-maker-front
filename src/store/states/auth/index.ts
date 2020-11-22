@@ -2,6 +2,9 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { User, AuthParams, UserState } from '../../../models/User'
 import { AuthService } from '../../../services/Auth'
 import jwt from 'jsonwebtoken'
+import { TypeStatus } from '../../../models'
+import NProgress from 'nprogress'
+import { toast } from 'react-toastify'
 
 const INITIAL_STATE: UserState = {
   user: {
@@ -26,17 +29,45 @@ const postAuth = createAsyncThunk(
           name: user.name
         }
       })
-      .catch(err => rejectWithValue(err))
+      .then((user: User) => {
+        toast.success('😁 Logged in!', {
+          autoClose: 3000,
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true
+        })
+        return user
+      })
+      .catch(err => {
+        toast.error(`😥 ${err.data.message}`, {
+          autoClose: 4000,
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true
+        })
+        return rejectWithValue(err)
+      })
 )
+
+const changeStatus = (state: UserState, action: PayloadAction<TypeStatus>) => ({
+  ...state,
+  status: action.payload
+})
 
 const { actions, reducer } = createSlice({
   name: 'Auth',
   initialState: INITIAL_STATE,
-  reducers: {},
+  reducers: {
+    changeStatus
+  },
   extraReducers: builder => {
     builder
       .addCase(postAuth.pending.type, state => {
-        console.log('PENDING')
+        NProgress.start()
         return {
           ...state,
           user: {
@@ -46,7 +77,7 @@ const { actions, reducer } = createSlice({
         }
       })
       .addCase(postAuth.rejected.type, (state, { payload }: any) => {
-        console.log('REJECTED')
+        NProgress.done()
         return {
           ...state,
           user: {
@@ -60,6 +91,7 @@ const { actions, reducer } = createSlice({
       .addCase(
         postAuth.fulfilled.type,
         (state, { payload }: PayloadAction<User>) => {
+          NProgress.done()
           return {
             ...state,
             user: {

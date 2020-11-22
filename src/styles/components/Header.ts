@@ -8,7 +8,9 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  background-color: ${props => props.theme.colors.background};
+  background-color: rgba(201, 76, 76, 0);
+  position: fixed;
+  top: 0px;
 `
 
 export const Brand = styled.div`

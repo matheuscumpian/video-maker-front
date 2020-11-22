@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container } from '../styles/pages/Login'
 import Input from '../components/Input/Input'
@@ -11,29 +11,19 @@ import RobotSVG from '../assets/robot.svg'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useRouter } from 'next/router'
-import { postAuth, reducer as AuthReducer } from '../store/states/auth'
+import { actions, postAuth } from '../store/states/auth'
 import { UserState } from '../models/User'
 import { ApplicationState } from '../store'
-import { toast } from 'react-toastify'
-
-export interface LoginProps {
-  name?: string
-}
-
-interface LoginState {
-  email: string
-  password: string
-  valid: boolean
-}
 
 const validationSchema = Yup.object({
   email: Yup.string().email().required('Invalid e-mail'),
   password: Yup.string().required('Password required')
 })
 
-const Login: React.FC<LoginProps> = ({ name }) => {
+const Login: React.FC = () => {
   const dispatch = useDispatch()
   const state = useSelector<ApplicationState, UserState>(state => state.auth)
+  const [isLoading, setIsLoading] = useState(false)
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -57,18 +47,23 @@ const Login: React.FC<LoginProps> = ({ name }) => {
 
   useEffect(() => {
     if (state.status === 'SUCCESS') {
-      router.push('/dashboard').then(() =>
-        toast.success('😁 Logged in!', {
-          autoClose: 3000,
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true
-        })
-      )
+      setIsLoading(false)
+      router
+        .push('/dashboard')
+        .then(() => dispatch(actions.changeStatus('NONE')))
     }
-  }, [state])
+
+    if (state.status === 'LOADING') {
+      setIsLoading(true)
+    }
+
+    if (state.status === 'ERROR') {
+      setIsLoading(false)
+    }
+
+    formik.values.email = ''
+    formik.values.password = ''
+  }, [state.status])
 
   return (
     <>
@@ -121,6 +116,7 @@ const Login: React.FC<LoginProps> = ({ name }) => {
                   !(formik.errors.email || formik.errors.password) &&
                   !!(formik.values.email && formik.values.password)
                 }
+                loading={isLoading}
               >
                 Login
               </Button>
