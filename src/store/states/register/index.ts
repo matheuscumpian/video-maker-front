@@ -1,3 +1,4 @@
+import NProgress from 'nprogress'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { RegisterParams, RegisterState } from '../../../models/User'
 import { AuthService } from '../../../services/Auth'
@@ -16,6 +17,14 @@ const registerUser = createAsyncThunk(
   (payload: RegisterParams, { rejectWithValue }) =>
     AuthService.registerUser(payload)
       .then(({ data }) => {
+        toast.info('🦄 Registered!', {
+          autoClose: 5000,
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true
+        })
         return data
       })
       .catch(err => {
@@ -38,14 +47,14 @@ const { actions, reducer } = createSlice({
   extraReducers: builder => {
     builder
       .addCase(registerUser.pending.type, state => {
-        console.log('PENDING')
+        NProgress.start()
         return {
           ...state,
           status: 'LOADING'
         }
       })
       .addCase(registerUser.rejected.type, (state, { payload }: any) => {
-        console.log('REJECTED')
+        NProgress.done()
         return {
           email: '',
           name: '',
@@ -55,7 +64,7 @@ const { actions, reducer } = createSlice({
         }
       })
       .addCase(registerUser.fulfilled.type, state => {
-        console.log('SUCCESS')
+        NProgress.done()
         return {
           ...state,
           status: 'SUCCESS'
