@@ -1,5 +1,7 @@
 import React from 'react'
+import { BeatLoader, ClipLoader } from 'react-spinners'
 import StyledButton from '../../styles/components/Button/Button'
+import { css } from '@emotion/core'
 
 interface ButtonProps {
   isValid?: boolean
@@ -7,6 +9,7 @@ interface ButtonProps {
   onSubmit?: any
   form?: string
   type?: string
+  loading?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -15,17 +18,24 @@ const Button: React.FC<ButtonProps> = ({
   children,
   onSubmit,
   form,
-  type
+  type,
+  loading
 }) => {
   return (
     <StyledButton
       form={form}
       onSubmit={onSubmit}
       isValid={isValid}
+      disabled={!isValid && !loading}
       onClick={onClick}
+      isLoading={loading}
       type="submit"
     >
-      {children}
+      {!loading ? (
+        children
+      ) : (
+        <BeatLoader size={10} color={'#EB46C0'} loading={true} />
+      )}
     </StyledButton>
   )
 }

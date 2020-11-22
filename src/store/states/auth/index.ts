@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { User, AuthParams, UserState } from '../../../models/User'
 import { AuthService } from '../../../services/Auth'
 import jwt from 'jsonwebtoken'
+import { TypeStatus } from '../../../models'
+import NProgress from 'nprogress'
 
 const INITIAL_STATE: UserState = {
   user: {
@@ -31,14 +33,21 @@ export const postAuth = createAsyncThunk(
       .catch(err => rejectWithValue(err))
 )
 
+const changeStatus = (state: UserState, action: PayloadAction<TypeStatus>) => ({
+  ...state,
+  status: action.payload
+})
+
 const { actions, reducer } = createSlice({
   name: 'Auth',
   initialState: INITIAL_STATE,
-  reducers: {},
+  reducers: {
+    changeStatus
+  },
   extraReducers: builder => {
     builder
       .addCase(postAuth.pending.type, state => {
-        console.log('PENDING')
+        NProgress.start()
         return {
           ...state,
           user: {
@@ -48,7 +57,7 @@ const { actions, reducer } = createSlice({
         }
       })
       .addCase(postAuth.rejected.type, (state, { payload }: any) => {
-        console.log('REJECTED')
+        NProgress.done()
         return {
           ...state,
           user: {},
@@ -59,6 +68,7 @@ const { actions, reducer } = createSlice({
       .addCase(
         postAuth.fulfilled.type,
         (state, { payload }: PayloadAction<User>) => {
+          NProgress.done()
           return {
             ...state,
             user: {
