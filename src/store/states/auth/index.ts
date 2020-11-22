@@ -4,6 +4,7 @@ import { AuthService } from '../../../services/Auth'
 import jwt from 'jsonwebtoken'
 import { TypeStatus } from '../../../models'
 import NProgress from 'nprogress'
+import { toast } from 'react-toastify'
 
 const INITIAL_STATE: UserState = {
   user: {
@@ -28,7 +29,28 @@ const postAuth = createAsyncThunk(
           name: user.name
         }
       })
-      .catch(err => rejectWithValue(err))
+      .then((user: User) => {
+        toast.success('😁 Logged in!', {
+          autoClose: 3000,
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true
+        })
+        return user
+      })
+      .catch(err => {
+        toast.error(`😥 ${err.data.message}`, {
+          autoClose: 4000,
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true
+        })
+        return rejectWithValue(err)
+      })
 )
 
 const changeStatus = (state: UserState, action: PayloadAction<TypeStatus>) => ({

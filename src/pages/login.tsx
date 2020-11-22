@@ -16,16 +16,12 @@ import { UserState } from '../models/User'
 import { ApplicationState } from '../store'
 import { toast } from 'react-toastify'
 
-export interface LoginProps {
-  name?: string
-}
-
 const validationSchema = Yup.object({
   email: Yup.string().email().required('Invalid e-mail'),
   password: Yup.string().required('Password required')
 })
 
-const Login: React.FC<LoginProps> = ({ name }) => {
+const Login: React.FC = () => {
   const dispatch = useDispatch()
   const state = useSelector<ApplicationState, UserState>(state => state.auth)
   const [isLoading, setIsLoading] = useState(false)
@@ -53,33 +49,17 @@ const Login: React.FC<LoginProps> = ({ name }) => {
   useEffect(() => {
     if (state.status === 'SUCCESS') {
       setIsLoading(false)
-      router.push('/dashboard').then(() => {
-        dispatch(actions.changeStatus('NONE'))
-        toast.success('😁 Logged in!', {
-          autoClose: 3000,
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true
-        })
-      })
-    }
-    if (state.status === 'ERROR') {
-      toast.error(`😥 ${state.error}`, {
-        autoClose: 4000,
-        position: 'top-center',
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true
-      })
-      setIsLoading(false)
-      dispatch(actions.changeStatus('NONE'))
+      router
+        .push('/dashboard')
+        .then(() => dispatch(actions.changeStatus('NONE')))
     }
 
     if (state.status === 'LOADING') {
       setIsLoading(true)
+    }
+
+    if (state.status === 'ERROR') {
+      setIsLoading(false)
     }
 
     formik.values.email = ''
