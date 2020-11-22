@@ -1,15 +1,18 @@
 import thunk from 'redux-thunk'
 import appReducer from './states'
-import { UserState } from '../models/User'
-import { INITIAL_STATE as user } from './states/auth/index'
+import { RegisterState, UserState } from '../models/User'
+import { INITIAL_STATE as user } from './states/auth'
+import { INITIAL_STATE as register } from './states/register'
 import { configureStore } from '@reduxjs/toolkit'
 
 export interface ApplicationState {
   auth: UserState
+  register: RegisterState
 }
 
 export const initialStateApplication: ApplicationState = {
-  auth: user
+  auth: user,
+  register: register
 }
 
 const logger = store => next => action => {
