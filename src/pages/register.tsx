@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import * as Yup from 'yup'
 import Button from '../components/Button/Button'
@@ -10,13 +10,13 @@ import RobotSVG from '../assets/robot.svg'
 import SignUpSVG from '../assets/signup.svg'
 import { useRouter } from 'next/router'
 import { Container } from '../styles/pages/Login'
-import { toast } from 'react-toastify'
 import { postAuth } from '../store/states/auth'
 import { registerUser } from '../store/states/register'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import { ApplicationState } from '../store'
 import { RegisterState, UserState } from '../models/User'
+import { useUpdateEffect } from '../hooks'
 
 export interface LoginProps {
   name?: string
@@ -46,9 +46,9 @@ const Register: React.FC<LoginProps> = () => {
   const stateRegister = useSelector<ApplicationState, RegisterState>(
     state => state.register
   )
-  const router = useRouter()
   const [errorMessage, setErrorMessage] = useState('')
   const [isValidForm, setIsValidForm] = useState(false)
+  const router = useRouter()
 
   const formik = useFormik({
     initialValues: {
@@ -73,7 +73,7 @@ const Register: React.FC<LoginProps> = () => {
     )
   }
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (stateRegister.status === 'SUCCESS') {
       setTimeout(() => {
         dispatch(
@@ -86,22 +86,13 @@ const Register: React.FC<LoginProps> = () => {
     }
   }, [stateRegister])
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (stateAuth.status === 'SUCCESS') {
-      router.push('/dashboard').then(() => {
-        toast.info('🦄 Register!', {
-          autoClose: 5000,
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true
-        })
-      })
+      router.push('/dashboard')
     }
   }, [stateAuth])
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (formik.touched.name && formik.errors.name) {
       setErrorMessage(formik.errors.name)
       setIsValidForm(false)
@@ -135,10 +126,6 @@ const Register: React.FC<LoginProps> = () => {
       setIsValidForm(true)
     }
   }, [formik])
-
-  useEffect(() => {
-    setIsValidForm(false)
-  }, [])
 
   return (
     <>
