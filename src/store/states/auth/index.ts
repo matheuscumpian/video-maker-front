@@ -1,109 +1,104 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
-import { User, AuthParams, UserState } from '../../../models/User'
-import { AuthService } from '../../../services/Auth'
-import jwt from 'jsonwebtoken'
-import { TypeStatus } from '../../../models'
-import NProgress from 'nprogress'
-import { toast } from 'react-toastify'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { User, AuthParams, UserState } from '../../../models/User';
+import { AuthService } from '../../../services/Auth';
+import jwt from 'jsonwebtoken';
+import { TypeStatus } from '../../../models';
+import NProgress from 'nprogress';
+import { toast } from 'react-toastify';
 
 const INITIAL_STATE: UserState = {
   user: {
     email: '',
-    name: ''
+    name: '',
   },
   error: '',
-  status: 'NONE'
-}
+  status: 'NONE',
+};
 
-const postAuth = createAsyncThunk(
-  'Auth/postAuth',
-  (payload: AuthParams, { rejectWithValue }) =>
-    AuthService.post(payload)
-      .then(({ data }) => {
-        localStorage.setItem('access_token', data.access_token)
-        return jwt.decode(data.access_token)
-      })
-      .then((user: User) => {
-        return {
-          email: user.email,
-          name: user.name
-        }
-      })
-      .then((user: User) => {
-        toast.success('😁 Logged in!', {
-          autoClose: 3000,
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true
-        })
-        return user
-      })
-      .catch(err => {
-        toast.error(`😥 ${err.data.message}`, {
-          autoClose: 4000,
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true
-        })
-        return rejectWithValue(err)
-      })
-)
+const postAuth = createAsyncThunk('Auth/postAuth', (payload: AuthParams, { rejectWithValue }) =>
+  AuthService.post(payload)
+    .then(({ data }) => {
+      localStorage.setItem('access_token', data.access_token);
+      return jwt.decode(data.access_token);
+    })
+    .then((user: User) => {
+      return {
+        email: user.email,
+        name: user.name,
+      };
+    })
+    .then((user: User) => {
+      toast.success('😁 Logged in!', {
+        autoClose: 3000,
+        position: 'top-center',
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
+      return user;
+    })
+    .catch(err => {
+      toast.error(`😥 ${err.data.message}`, {
+        autoClose: 4000,
+        position: 'top-center',
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
+      return rejectWithValue(err);
+    }),
+);
 
 const changeStatus = (state: UserState, action: PayloadAction<TypeStatus>) => ({
   ...state,
-  status: action.payload
-})
+  status: action.payload,
+});
 
 const { actions, reducer } = createSlice({
   name: 'Auth',
   initialState: INITIAL_STATE,
   reducers: {
-    changeStatus
+    changeStatus,
   },
   extraReducers: builder => {
     builder
       .addCase(postAuth.pending.type, state => {
-        NProgress.start()
+        NProgress.start();
         return {
           ...state,
           user: {
-            ...state.user
+            ...state.user,
           },
-          status: 'LOADING'
-        }
+          status: 'LOADING',
+        };
       })
       .addCase(postAuth.rejected.type, (state, { payload }: any) => {
-        NProgress.done()
+        NProgress.done();
         return {
           ...state,
           user: {
             email: '',
-            name: ''
+            name: '',
           },
           error: payload.message,
-          status: 'ERROR'
-        }
+          status: 'ERROR',
+        };
       })
-      .addCase(
-        postAuth.fulfilled.type,
-        (state, { payload }: PayloadAction<User>) => {
-          NProgress.done()
-          return {
-            ...state,
-            user: {
-              ...state.user,
-              email: payload.email,
-              name: payload.name
-            },
-            status: 'SUCCESS'
-          }
-        }
-      )
-  }
-})
+      .addCase(postAuth.fulfilled.type, (state, { payload }: PayloadAction<User>) => {
+        NProgress.done();
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            email: payload.email,
+            name: payload.name,
+          },
+          status: 'SUCCESS',
+        };
+      });
+  },
+});
 
-export { actions, INITIAL_STATE, postAuth, reducer }
+export { actions, INITIAL_STATE, postAuth, reducer };

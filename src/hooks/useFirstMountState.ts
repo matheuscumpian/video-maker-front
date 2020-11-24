@@ -1,15 +1,15 @@
-import { useRef } from 'react'
+import { useRef } from 'react';
 
 const useFirstMountState = (): boolean => {
-  const isFirst = useRef(true)
+  const isFirst = useRef(true);
 
   if (isFirst.current) {
-    isFirst.current = false
+    isFirst.current = false;
 
-    return true
+    return true;
   }
 
-  return isFirst.current
-}
+  return isFirst.current;
+};
 
-export { useFirstMountState }
+export { useFirstMountState };

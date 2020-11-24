@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export interface HomeProps {
-  primary?: boolean
+  primary?: boolean;
 }
 
 export const Container = styled.div<HomeProps>`
@@ -12,10 +12,7 @@ export const Container = styled.div<HomeProps>`
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
-  background-color: ${(props: any) =>
-    props.primary
-      ? props.theme.colors.background
-      : props.theme.colors.secondary};
+  background-color: ${(props: any) => (props.primary ? props.theme.colors.background : props.theme.colors.secondary)};
   h1 {
     font-size: 54px;
     color: ${props => props.theme.colors.text};
@@ -27,4 +24,4 @@ export const Container = styled.div<HomeProps>`
     font-size: 24px;
     line-height: 32px;
   }
-`
+`;

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const ImageContainer = styled.div`
   align-items: center;
@@ -11,7 +11,7 @@ const ImageContainer = styled.div`
   max-height: 107px;
   width: 100%;
   overflow: hidden;
-`
+`;
 
 const StyledCardVideo = styled.div`
   align-items: center;
@@ -24,7 +24,7 @@ const StyledCardVideo = styled.div`
   margin-bottom: 4vh;
   width: 190px;
   min-height: 187px;
-`
+`;
 
 const Title = styled.div`
   align-self: center;
@@ -32,6 +32,6 @@ const Title = styled.div`
   height: 1.1rem;
   margin-top: 8px;
   width: 90%;
-`
+`;
 
-export { ImageContainer, StyledCardVideo, Title }
+export { ImageContainer, StyledCardVideo, Title };

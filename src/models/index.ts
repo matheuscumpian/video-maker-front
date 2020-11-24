@@ -1,1 +1,1 @@
-export type TypeStatus = 'LOADING' | 'SUCCESS' | 'ERROR' | 'NONE'
+export type TypeStatus = 'LOADING' | 'SUCCESS' | 'ERROR' | 'NONE';

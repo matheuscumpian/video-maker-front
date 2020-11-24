@@ -1,8 +1,8 @@
-import React from 'react'
-import Head from 'next/head'
-import NotFoundSVG from '../assets/404.svg'
-import styled from 'styled-components'
-import Header from '../components/Header'
+import React from 'react';
+import Head from 'next/head';
+import NotFoundSVG from '../assets/404.svg';
+import styled from 'styled-components';
+import Header from '../components/Header';
 
 const NotFoundContainer = styled.div`
   display: flex;
@@ -15,7 +15,7 @@ const NotFoundContainer = styled.div`
       height: 50vh;
     }
   }
-`
+`;
 
 const NotFound: React.FC = () => {
   return (
@@ -28,7 +28,7 @@ const NotFound: React.FC = () => {
         <NotFoundSVG />
       </NotFoundContainer>
     </>
-  )
-}
+  );
+};
 
-export default NotFound
+export default NotFound;

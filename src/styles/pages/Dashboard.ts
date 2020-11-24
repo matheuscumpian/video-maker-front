@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 interface ListCardsProps {
-  isEmpty: boolean
+  isEmpty: boolean;
 }
 
 const Container = styled.div`
@@ -10,7 +10,7 @@ const Container = styled.div`
   height: 100vh;
   justify-content: flex-start;
   width: 100vw;
-`
+`;
 
 const ListCards = styled.div<ListCardsProps>`
   align-self: center;
@@ -24,7 +24,7 @@ const ListCards = styled.div<ListCardsProps>`
   margin-left: 2vw;
   margin-right: 2vw;
   width: 100vw;
-`
+`;
 
 const EmptyList = styled.div`
   align-items: center;
@@ -37,6 +37,6 @@ const EmptyList = styled.div`
   svg {
     max-width: 40vw;
   }
-`
+`;
 
-export { Container, EmptyList, ListCards }
+export { Container, EmptyList, ListCards };

@@ -1,44 +1,42 @@
-import NProgress from 'nprogress'
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { RegisterParams, RegisterState } from '../../../models/User'
-import { AuthService } from '../../../services/Auth'
-import { toast } from 'react-toastify'
+import NProgress from 'nprogress';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { RegisterParams, RegisterState } from '../../../models/User';
+import { AuthService } from '../../../services/Auth';
+import { toast } from 'react-toastify';
 
 const INITIAL_STATE: RegisterState = {
   email: '',
   name: '',
   password: '',
   error: '',
-  status: 'NONE'
-}
+  status: 'NONE',
+};
 
-const registerUser = createAsyncThunk(
-  'Register/registerUser',
-  (payload: RegisterParams, { rejectWithValue }) =>
-    AuthService.registerUser(payload)
-      .then(({ data }) => {
-        toast.info('🦄 Registered!', {
-          autoClose: 5000,
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true
-        })
-        return data
-      })
-      .catch(err => {
-        toast.error(err.data.message, {
-          autoClose: 4000,
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true
-        })
-        return rejectWithValue(err)
-      })
-)
+const registerUser = createAsyncThunk('Register/registerUser', (payload: RegisterParams, { rejectWithValue }) =>
+  AuthService.registerUser(payload)
+    .then(({ data }) => {
+      toast.info('🦄 Registered!', {
+        autoClose: 5000,
+        position: 'top-center',
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      return data;
+    })
+    .catch(err => {
+      toast.error(err.data.message, {
+        autoClose: 4000,
+        position: 'top-center',
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
+      return rejectWithValue(err);
+    }),
+);
 
 const { actions, reducer } = createSlice({
   name: 'Register',
@@ -47,30 +45,30 @@ const { actions, reducer } = createSlice({
   extraReducers: builder => {
     builder
       .addCase(registerUser.pending.type, state => {
-        NProgress.start()
+        NProgress.start();
         return {
           ...state,
-          status: 'LOADING'
-        }
+          status: 'LOADING',
+        };
       })
       .addCase(registerUser.rejected.type, (state, { payload }: any) => {
-        NProgress.done()
+        NProgress.done();
         return {
           email: '',
           name: '',
           password: '',
           error: payload.data.message,
-          status: 'ERROR'
-        }
+          status: 'ERROR',
+        };
       })
       .addCase(registerUser.fulfilled.type, state => {
-        NProgress.done()
+        NProgress.done();
         return {
           ...state,
-          status: 'SUCCESS'
-        }
-      })
-  }
-})
+          status: 'SUCCESS',
+        };
+      });
+  },
+});
 
-export { actions, INITIAL_STATE, reducer, registerUser }
+export { actions, INITIAL_STATE, reducer, registerUser };

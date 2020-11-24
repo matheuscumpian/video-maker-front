@@ -1,15 +1,11 @@
-import React from 'react'
-import {
-  ImageContainer,
-  StyledCardVideo,
-  Title
-} from '../../styles/components/CardVideo/CardSkeleton'
+import React from 'react';
+import { ImageContainer, StyledCardVideo, Title } from '../../styles/components/CardVideo/CardSkeleton';
 
 const CardVideoSkeleton: React.FC = () => {
-  const arr = []
+  const arr = [];
 
   for (let i = 0; i < 28; i++) {
-    arr[i] = {}
+    arr[i] = {};
   }
 
   return (
@@ -21,10 +17,10 @@ const CardVideoSkeleton: React.FC = () => {
             <Title />
             <Title />
           </StyledCardVideo>
-        )
+        );
       })}
     </>
-  )
-}
+  );
+};
 
-export default CardVideoSkeleton
+export default CardVideoSkeleton;

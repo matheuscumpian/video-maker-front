@@ -1,16 +1,16 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react';
 
 const useUnmount = (fn: () => any): void => {
-  const fnRef = useRef(fn)
+  const fnRef = useRef(fn);
 
   // update the ref each render so if it change the newest callback will be invoked
-  fnRef.current = fn
+  fnRef.current = fn;
 
   useEffect(() => {
     return () => {
-      fnRef.current()
-    }
-  }, [])
-}
+      fnRef.current();
+    };
+  }, []);
+};
 
-export { useUnmount }
+export { useUnmount };

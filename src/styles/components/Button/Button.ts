@@ -1,13 +1,12 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export interface ButtonProps {
-  isValid: boolean
-  isLoading: boolean
+  isValid: boolean;
+  isLoading: boolean;
 }
 
 const StyledButton = styled.button<ButtonProps>`
-  background-color: ${props =>
-    props.isValid ? props.theme.colors.secondary : props.theme.colors.icon};
+  background-color: ${props => (props.isValid ? props.theme.colors.secondary : props.theme.colors.icon)};
   border-radius: 8px;
   border: 0px;
   width: 300px;
@@ -36,6 +35,6 @@ const StyledButton = styled.button<ButtonProps>`
             cursor: not-allowed;
           `}
   }
-`
+`;
 
-export default StyledButton
+export default StyledButton;

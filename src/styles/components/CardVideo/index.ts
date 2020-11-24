@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const ImageContainer = styled.div`
   align-items: center;
@@ -16,7 +16,7 @@ const ImageContainer = styled.div`
     object-fit: cover;
     width: 100%;
   }
-`
+`;
 
 const StyledCardVideo = styled.div`
   align-items: center;
@@ -35,13 +35,13 @@ const StyledCardVideo = styled.div`
     cursor: pointer;
     transform: scale(1.05);
   }
-`
+`;
 
 const Title = styled.p`
   align-self: flex-start;
   font-size: 1.1rem;
   text-align: left;
   padding: 6px 12px 0px 12px;
-`
+`;
 
-export { ImageContainer, StyledCardVideo, Title }
+export { ImageContainer, StyledCardVideo, Title };

@@ -1,34 +1,32 @@
-import NProgress from 'nprogress'
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
-import { VideoParams, VideoState } from '../../../models/Video'
-import { VideoService } from '../../../services/Video'
-import { toast } from 'react-toastify'
+import NProgress from 'nprogress';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { VideoParams, VideoState } from '../../../models/Video';
+import { VideoService } from '../../../services/Video';
+import { toast } from 'react-toastify';
 
 const INITIAL_STATE: VideoState = {
   videos: [],
   error: '',
-  status: 'NONE'
-}
+  status: 'NONE',
+};
 
-const getVideos = createAsyncThunk(
-  'Video/getVideos',
-  (payload, { rejectWithValue }) =>
-    VideoService.getVideos()
-      .then(({ data }) => {
-        return data
-      })
-      .catch(err => {
-        toast.error('😥 Parece que houve um problema!', {
-          autoClose: 4000,
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true
-        })
-        return rejectWithValue(err)
-      })
-)
+const getVideos = createAsyncThunk('Video/getVideos', (payload, { rejectWithValue }) =>
+  VideoService.getVideos()
+    .then(({ data }) => {
+      return data;
+    })
+    .catch(err => {
+      toast.error('😥 Parece que houve um problema!', {
+        autoClose: 4000,
+        position: 'top-center',
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
+      return rejectWithValue(err);
+    }),
+);
 
 const { actions, reducer } = createSlice({
   name: 'Video',
@@ -37,32 +35,29 @@ const { actions, reducer } = createSlice({
   extraReducers: builder => {
     builder
       .addCase(getVideos.pending.type, state => {
-        NProgress.start()
+        NProgress.start();
         return {
           ...state,
-          status: 'LOADING'
-        }
+          status: 'LOADING',
+        };
       })
       .addCase(getVideos.rejected.type, (state, { payload }: any) => {
-        NProgress.done()
+        NProgress.done();
         return {
           ...state,
           error: payload.message,
-          status: 'ERROR'
-        }
+          status: 'ERROR',
+        };
       })
-      .addCase(
-        getVideos.fulfilled.type,
-        (state, { payload }: PayloadAction<any>) => {
-          NProgress.done()
-          return {
-            ...state,
-            videos: payload,
-            status: 'SUCCESS'
-          }
-        }
-      )
-  }
-})
+      .addCase(getVideos.fulfilled.type, (state, { payload }: PayloadAction<any>) => {
+        NProgress.done();
+        return {
+          ...state,
+          videos: payload,
+          status: 'SUCCESS',
+        };
+      });
+  },
+});
 
-export { actions, INITIAL_STATE, getVideos, reducer }
+export { actions, INITIAL_STATE, getVideos, reducer };

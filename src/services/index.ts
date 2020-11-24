@@ -1,34 +1,34 @@
-import Axios from 'axios'
-import { toast } from 'react-toastify'
-const UNAUTHORIZED = 401
-const INTERNAL_SERVER_ERROR = 500
+import Axios from 'axios';
+import { toast } from 'react-toastify';
+const UNAUTHORIZED = 401;
+const INTERNAL_SERVER_ERROR = 500;
 
 export interface Response {
-  status: string
+  status: string;
 }
 
 const axios = Axios.create({
   baseURL: process.env.API_URL,
-  timeout: 10000
-})
+  timeout: 10000,
+});
 
 axios.interceptors.request.use(config => {
   const headers = {
     ...config.headers,
     'Accept-Language': 'en',
-    'access-token': `${localStorage.getItem('access_token')}`
-  }
+    'access-token': `${localStorage.getItem('access_token')}`,
+  };
 
   return {
     ...config,
-    headers
-  }
-})
+    headers,
+  };
+});
 
 axios.interceptors.response.use(
   response => response,
   async err => {
-    const { status } = err.response
+    const { status } = err.response;
 
     if (status === UNAUTHORIZED) {
       toast.error('🔐 Unauthorized', {
@@ -38,8 +38,8 @@ axios.interceptors.response.use(
         closeOnClick: true,
         pauseOnHover: false,
         draggable: true,
-        onClose: () => (window.location.href = `${process.env.DOMAIN}/login`)
-      })
+        onClose: () => (window.location.href = `${process.env.DOMAIN}/login`),
+      });
     }
 
     if (status === INTERNAL_SERVER_ERROR) {
@@ -50,12 +50,12 @@ axios.interceptors.response.use(
         closeOnClick: true,
         pauseOnHover: false,
         draggable: true,
-        onClose: () => (window.location.href = `${process.env.DOMAIN}/login`)
-      })
+        onClose: () => (window.location.href = `${process.env.DOMAIN}/login`),
+      });
     }
 
-    return Promise.reject(err.response)
-  }
-)
+    return Promise.reject(err.response);
+  },
+);
 
-export default axios
+export default axios;
