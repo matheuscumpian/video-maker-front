@@ -18,7 +18,6 @@ const Header: React.FC<HeaderProps> = ({ options }) => {
   const [showHeader, setShowHeader] = useState(true);
   const handleScroll = () => {
     const position = window.pageYOffset;
-    console.log(position);
     if (position <= 0) setShowHeader(true);
     else setShowHeader(false);
   };
