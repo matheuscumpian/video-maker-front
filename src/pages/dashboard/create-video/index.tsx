@@ -2,20 +2,10 @@ import React from 'react';
 import Head from 'next/head';
 import Header from '../../../components/Header';
 import theme from '../../../styles/theme';
-import { Button } from '../../../components';
-import {
-  Container,
-  DetailsContent,
-  DetailsTitle,
-  Section,
-  SectionContent,
-  SectionTitle,
-  VideoContainer,
-  VideoDetails,
-  VideoTitle,
-} from '../../../styles/pages/Video';
+import { Button, DragAndDrop } from '../../../components';
+import { Container, DetailsContent, DetailsTitle, Section, SectionContent, SectionTitle, VideoDetails } from '../../../styles/pages/Video';
 
-const VideoDetailsPage: React.FC = () => {
+const CreateVideo: React.FC = () => {
   return (
     <>
       <Head>
@@ -29,10 +19,6 @@ const VideoDetailsPage: React.FC = () => {
       />
 
       <Container>
-        <VideoContainer>
-          <video src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4' controls></video>
-          <VideoTitle>Lorem ipsum dolor sit amet</VideoTitle>
-        </VideoContainer>
         <VideoDetails>
           <DetailsContent>
             <DetailsTitle>Video Details:</DetailsTitle>
@@ -50,9 +36,10 @@ const VideoDetailsPage: React.FC = () => {
             Delete Video
           </Button>
         </VideoDetails>
+        <DragAndDrop></DragAndDrop>
       </Container>
     </>
   );
 };
 
-export default VideoDetailsPage;
+export default CreateVideo;
