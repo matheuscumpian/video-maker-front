@@ -33,8 +33,8 @@ const VideoDetails = styled.div`
   flex-direction: column;
   padding-bottom: 2vh;
   padding-top: 2vh;
-  padding-left: 2vw;
-  padding-right: 2vw;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
   width: 400px;
   max-width: 400px;
 
