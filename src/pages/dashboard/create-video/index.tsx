@@ -5,8 +5,18 @@ import theme from '../../../styles/theme';
 import { Button, DragAndDrop } from '../../../components';
 import { Container, DetailsContent, DetailsTitle, Section, SectionContent, SectionTitle, VideoDetails } from '../../../styles/pages/Video';
 import { useMount } from '../../../hooks';
+import { useDispatch } from 'react-redux';
+import { actions } from '../../../store/states/auth';
 
 const CreateVideo: React.FC = () => {
+
+  const dispatch = useDispatch();
+
+  useMount(() => {
+    const token = localStorage.getItem('access_token');
+    dispatch(actions.updateUserAuth(token));
+  });
+
   return (
     <>
       <Head>
