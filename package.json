@@ -1,5 +1,5 @@
 {
-  "name": "reactsetup",
+  "name": "vide-maker",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -17,6 +17,7 @@
     "aos": "^2.3.4",
     "axios": "^0.21.0",
     "formik": "^2.2.5",
+    "framer-motion": "^2.9.4",
     "jsonwebtoken": "^8.5.1",
     "next": "9.5.2",
     "next-images": "^1.4.1",
