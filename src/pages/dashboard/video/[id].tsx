@@ -15,7 +15,7 @@ import {
   VideoTitle,
 } from '../../../styles/pages/Video';
 
-const Dashboard: React.FC = () => {
+const VideoDetailsPage: React.FC = () => {
   return (
     <>
       <Head>
@@ -55,4 +55,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default VideoDetailsPage;
