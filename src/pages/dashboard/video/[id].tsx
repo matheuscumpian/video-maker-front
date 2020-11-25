@@ -2,6 +2,8 @@ import React from 'react';
 import Head from 'next/head';
 import Header from '../../../components/Header';
 import theme from '../../../styles/theme';
+import DownloadIcon from '../../../assets/download.svg';
+import DeleteIcon from '../../../assets/trashcan.svg';
 import { Button } from '../../../components';
 import {
   Container,
@@ -44,9 +46,13 @@ const VideoDetailsPage: React.FC = () => {
             <Section>
               <SectionContent>The history of</SectionContent>
             </Section>
-            <Button isValid>Download Video</Button>
+            <Button isValid>
+              <DownloadIcon />
+              Download Video
+            </Button>
           </DetailsContent>
           <Button color={theme.colors.error} isValid>
+            <DeleteIcon />
             Delete Video
           </Button>
         </VideoDetails>

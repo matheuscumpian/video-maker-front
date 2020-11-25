@@ -39,6 +39,12 @@ const VideoDetails = styled.div`
   max-width: 400px;
 
   Button {
+    svg {
+      height: auto;
+      left: 16px;
+      position: absolute;
+      width: 22px;
+    }
     margin-top: 1.5vh;
   }
 `;
