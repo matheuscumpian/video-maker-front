@@ -1,0 +1,1 @@
+export const SKELETON_NUMBER_OF_CARDS = 28;
