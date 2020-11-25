@@ -14,7 +14,7 @@ const Container = styled.div`
   margin-bottom: 5px;
   margin-top: 5px;
   min-height: 50px;
-  border-radius: 5px;
+  border-radius: 4px;
   border: 1px solid #f1f1f1;
   transition-duration: 0.3s;
   transition-property: border;
