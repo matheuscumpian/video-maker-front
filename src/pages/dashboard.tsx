@@ -30,11 +30,11 @@ const Dashboard: React.FC = () => {
     } else {
       setLoading(false);
     }
-    //if (!authenticated) router.push('/login');
+    if (!authenticated) router.push('/login');
   }, [status]);
 
   return (
-    true && (
+    authenticated && (
       <>
         <Head>
           <title>Dashboard</title>
