@@ -10,13 +10,13 @@ import RobotSVG from '../assets/robot.svg';
 import SignUpSVG from '../assets/signup.svg';
 import { useRouter } from 'next/router';
 import { Container } from '../styles/pages/Login';
-import { postAuth } from '../store/states/auth';
+import { actions, postAuth } from '../store/states/auth';
 import { registerUser } from '../store/states/register';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { ApplicationState } from '../store';
 import { RegisterState, UserState } from '../models/User';
-import { useUpdateEffect } from '../hooks';
+import { useMount, useUpdateEffect } from '../hooks';
 
 export interface LoginProps {
   name?: string;
@@ -65,6 +65,11 @@ const Register: React.FC<LoginProps> = () => {
       }),
     );
   };
+
+  useMount(() => {
+    const token = localStorage.getItem('access_token');
+    dispatch(actions.updateUserAuth(token));
+  });
 
   useUpdateEffect(() => {
     if (stateRegister.status === 'SUCCESS') {

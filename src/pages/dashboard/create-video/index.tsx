@@ -4,6 +4,7 @@ import Header from '../../../components/Header';
 import theme from '../../../styles/theme';
 import { Button, DragAndDrop } from '../../../components';
 import { Container, DetailsContent, DetailsTitle, Section, SectionContent, SectionTitle, VideoDetails } from '../../../styles/pages/Video';
+import { useMount } from '../../../hooks';
 
 const CreateVideo: React.FC = () => {
   return (
