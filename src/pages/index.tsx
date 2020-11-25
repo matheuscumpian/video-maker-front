@@ -7,6 +7,9 @@ import { Container as Row } from '../styles/components/Row/Row';
 import Marketing from '../assets/marketing.svg';
 import Social from '../assets/social.svg';
 import Header from '../components/Header';
+import { useDispatch } from 'react-redux';
+import { actions } from '../store/states/auth';
+import { useMount } from '../hooks';
 
 const phrasesFirstSection = ['Automate your video creation process', 'Accelerate your content creation flow'];
 
@@ -23,6 +26,13 @@ const HeroBodySection2 = {
 const Home: React.FC = () => {
   useEffect(() => {
     AOS.init();
+  });
+
+  const dispatch = useDispatch();
+
+  useMount(() => {
+    const token = localStorage.getItem('access_token');
+    dispatch(actions.updateUserAuth(token));
   });
 
   return (

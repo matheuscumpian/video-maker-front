@@ -16,8 +16,19 @@ import {
   VideoDetails,
   VideoTitle,
 } from '../../../styles/pages/Video';
+import { useMount } from '../../../hooks';
+import { actions } from '../../../store/states/auth';
+import { useDispatch } from 'react-redux';
 
 const VideoDetailsPage: React.FC = () => {
+
+  const dispatch = useDispatch();
+
+  useMount(() => {
+    const token = localStorage.getItem('access_token');
+    dispatch(actions.updateUserAuth(token));
+  });
+
   return (
     <>
       <Head>

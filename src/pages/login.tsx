@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import { actions, postAuth } from '../store/states/auth';
 import { UserState } from '../models/User';
 import { ApplicationState } from '../store';
+import { useMount } from '../hooks';
 
 const validationSchema = Yup.object({
   email: Yup.string().email().required('Invalid e-mail'),
@@ -44,6 +45,11 @@ const Login: React.FC = () => {
       }),
     );
   };
+
+  useMount(() => {
+    const token = localStorage.getItem('access_token');
+    dispatch(actions.updateUserAuth(token));
+  });
 
   useEffect(() => {
     if (state.status === 'SUCCESS') {

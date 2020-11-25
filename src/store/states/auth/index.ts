@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import { TypeStatus } from '../../../models';
 import NProgress from 'nprogress';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 const INITIAL_STATE: UserState = {
   user: {
@@ -57,11 +58,42 @@ const changeStatus = (state: UserState, action: PayloadAction<TypeStatus>) => ({
   status: action.payload,
 });
 
+const updateUserAuth = (state: UserState, action: PayloadAction<string>) => {
+  const token = action.payload;
+  const user = jwt.decode(token) as User;
+  if (!!user && typeof window !== 'undefined') {
+    if (!window.location.href.includes('/dashboard')) window.location.pathname = '/dashboard';
+  }
+  if (!user && typeof window !== 'undefined') {
+    if (window.location.pathname != '/' && window.location.pathname != '/login' && window.location.pathname != '/register')
+      window.location.pathname = '/';
+  }
+  return {
+    ...state,
+    user: {
+      email: user?.email,
+      name: user?.name,
+    },
+    authenticated: !!user,
+  };
+};
+
+const logout = (state: UserState, action: PayloadAction<any>) => {
+  localStorage.removeItem('access_token');
+  return {
+    ...state,
+    user: {},
+    authenticated: false,
+  };
+};
+
 const { actions, reducer } = createSlice({
   name: 'Auth',
   initialState: INITIAL_STATE,
   reducers: {
     changeStatus,
+    updateUserAuth,
+    logout,
   },
   extraReducers: builder => {
     builder
