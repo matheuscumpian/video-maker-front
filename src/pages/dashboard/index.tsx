@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
-import Header from '../components/Header';
-import Empty from '../assets/empty.svg';
-import { useMount, useUpdateEffect } from '../hooks';
-import { getVideos } from '../store/states/video';
-import { CardVideo, CardVideoSkeleton } from '../components';
-import { ApplicationState } from '../store';
+import Header from '../../components/Header';
+import Empty from '../../assets/empty.svg';
+import { useRouter } from 'next/router';
+import { useMount, useUpdateEffect } from '../../hooks';
+import { getVideos } from '../../store/states/video';
+import { CardVideo, CardVideoSkeleton } from '../../components';
+import { ApplicationState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
-import { VideoParams, VideoState } from '../models/Video';
-import { Container, EmptyList, ListCards } from '../styles/pages/Dashboard';
+import { VideoParams, VideoState } from '../../models/Video';
+import { Container, EmptyList, ListCards } from '../../styles/pages/Dashboard';
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
   const state = useSelector<ApplicationState, VideoState>(state => state.video);
   const status = state.status;
   const videos = state.videos;
@@ -28,6 +30,10 @@ const Dashboard: React.FC = () => {
       setLoading(false);
     }
   }, [status]);
+
+  const onClickCard = () => {
+    router.push('/dashboard/video/1');
+  };
 
   return (
     <>
@@ -46,7 +52,7 @@ const Dashboard: React.FC = () => {
             <CardVideoSkeleton />
           ) : videos.length > 0 ? (
             videos.map((video: VideoParams, index) => {
-              return <CardVideo id={index} key={index} thumbnail={video.image} title={video.title} />;
+              return <CardVideo id={index} key={index} thumbnail={video.image} title={video.title} onClick={onClickCard} />;
             })
           ) : (
             <EmptyList>
