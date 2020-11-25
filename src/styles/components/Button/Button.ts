@@ -1,12 +1,13 @@
 import styled, { css } from 'styled-components';
 
 export interface ButtonProps {
+  color: string;
   isValid: boolean;
   isLoading: boolean;
 }
 
 const StyledButton = styled.button<ButtonProps>`
-  background-color: ${props => (props.isValid ? props.theme.colors.secondary : props.theme.colors.icon)};
+  background-color: ${props => (props.isValid ? (props.color ? props.color : props.theme.colors.secondary) : props.theme.colors.icon)};
   border-radius: 8px;
   border: 0px;
   width: 300px;
