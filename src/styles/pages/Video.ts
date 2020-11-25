@@ -6,8 +6,8 @@ const Container = styled.div`
   height: 100vh;
   justify-content: space-between;
   margin-top: 15vh;
-  padding-left: 2vw;
-  padding-right: 2vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
   width: 100vw;
 
   video {
@@ -33,9 +33,9 @@ const VideoDetails = styled.div`
   flex-direction: column;
   padding-bottom: 2vh;
   padding-top: 2vh;
-  padding-left: 2vw;
-  padding-right: 2vw;
-  width: 400px;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  width: 360px;
   max-width: 400px;
 
   Button {
