@@ -21,7 +21,6 @@ import { actions } from '../../../store/states/auth';
 import { useDispatch } from 'react-redux';
 
 const VideoDetailsPage: React.FC = () => {
-
   const dispatch = useDispatch();
 
   useMount(() => {

@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux';
 import { actions } from '../../../store/states/auth';
 
 const CreateVideo: React.FC = () => {
-
   const dispatch = useDispatch();
 
   useMount(() => {
