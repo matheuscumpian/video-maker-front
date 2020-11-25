@@ -23,6 +23,7 @@ export interface User {
 
 export interface UserState {
   user: User;
+  authenticated: boolean;
   status: TypeStatus;
   error: string;
 }

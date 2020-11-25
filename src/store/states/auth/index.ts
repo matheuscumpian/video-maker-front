@@ -11,6 +11,7 @@ const INITIAL_STATE: UserState = {
     email: '',
     name: '',
   },
+  authenticated: false,
   error: '',
   status: 'NONE',
 };
@@ -68,9 +69,6 @@ const { actions, reducer } = createSlice({
         NProgress.start();
         return {
           ...state,
-          user: {
-            ...state.user,
-          },
           status: 'LOADING',
         };
       })
@@ -82,6 +80,7 @@ const { actions, reducer } = createSlice({
             email: '',
             name: '',
           },
+          authenticated: false,
           error: payload.message,
           status: 'ERROR',
         };
@@ -95,6 +94,7 @@ const { actions, reducer } = createSlice({
             email: payload.email,
             name: payload.name,
           },
+          authenticated: true,
           status: 'SUCCESS',
         };
       });
