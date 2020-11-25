@@ -5,28 +5,18 @@ name: Node.js CI
 
 on:
   push:
-    branches:
-      - release/*
-      - bugfix/*
-      - hotfix/*
+    branches: [master, develop, release/*, bugfix/*, hotfix/*]
   pull_request:
-    branches:
-      - develop
+    branches: [master, develop, release/*, bugfix/*, hotfix/*]
 
 jobs:
   lint:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x, 14.x]
-
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 12.x
     - run: yarn install
     - run: yarn lint
