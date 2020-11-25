@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --quiet",
-    "lint-fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
+    "lint-fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@fullpage/react-fullpage": "^0.1.18",
@@ -50,6 +51,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-standard": "^4.0.1",
+    "husky": "^5.0.4",
     "prettier": "^2.2.0",
     "prettier-eslint": "^12.0.0",
     "typescript": "^4.0.2"
