@@ -8,6 +8,10 @@ export const Container = styled.div<HomeProps>`
   width: 100vw;
   height: 100vh;
 
+  .header {
+    width: 100vw;
+  }
+
   display: flex;
   align-items: center;
   justify-content: space-evenly;
