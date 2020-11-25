@@ -1,20 +1,21 @@
 import React from 'react';
-import { BeatLoader, ClipLoader } from 'react-spinners';
+import { BeatLoader } from 'react-spinners';
 import StyledButton from '../../styles/components/Button/Button';
-import { css } from '@emotion/core';
 
 interface ButtonProps {
+  color?: string;
+  form?: string;
   isValid?: boolean;
+  loading?: boolean;
   onClick?: any;
   onSubmit?: any;
-  form?: string;
   type?: string;
-  loading?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ isValid, onClick, children, onSubmit, form, type, loading }) => {
+const Button: React.FC<ButtonProps> = ({ color, isValid, onClick, children, onSubmit, form, type, loading }) => {
   return (
     <StyledButton
+      color={color}
       form={form}
       onSubmit={onSubmit}
       isValid={isValid}
