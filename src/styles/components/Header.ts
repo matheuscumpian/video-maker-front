@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100vw;
@@ -8,8 +8,10 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  background-color: ${props => props.theme.colors.background};
-`
+  background-color: rgba(201, 76, 76, 0);
+  position: fixed;
+  top: 0px;
+`;
 
 export const Brand = styled.div`
   display: flex;
@@ -24,7 +26,7 @@ export const Brand = styled.div`
   :hover {
     transform: scale(1.03, 1.03);
   }
-`
+`;
 
 export const Options = styled.div`
   display: flex;
@@ -44,4 +46,4 @@ export const Options = styled.div`
     color: ${props => props.theme.colors.primary};
     transform: scale(1.2, 1.2);
   }
-`
+`;

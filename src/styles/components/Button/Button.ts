@@ -1,15 +1,18 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export interface ButtonProps {
-  isValid: boolean
+  isValid: boolean;
+  isLoading: boolean;
 }
 
 const StyledButton = styled.button<ButtonProps>`
-  background-color: ${props =>
-    props.isValid ? props.theme.colors.secondary : props.theme.colors.icon};
+  background-color: ${props => (props.isValid ? props.theme.colors.secondary : props.theme.colors.icon)};
   border-radius: 8px;
   border: 0px;
   width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   display: inline-block;
   cursor: pointer;
   color: ${props => props.theme.colors.text};
@@ -32,6 +35,6 @@ const StyledButton = styled.button<ButtonProps>`
             cursor: not-allowed;
           `}
   }
-`
+`;
 
-export default StyledButton
+export default StyledButton;

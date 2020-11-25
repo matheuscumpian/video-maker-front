@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react'
-import { Container, BodyItem } from '../../styles/components/Hero/HeroBody'
-import AOS from 'aos'
+import React, { useEffect } from 'react';
+import { Container, BodyItem } from '../../styles/components/Hero/HeroBody';
+import AOS from 'aos';
 
 export interface HeroBodyProps {
-  phrases?: string[]
-  img?: any
+  phrases?: string[];
+  img?: any;
 }
 
 const HeroBody: React.FC<HeroBodyProps> = ({ phrases, img }) => {
   useEffect(() => {
-    AOS.init()
-  })
+    AOS.init();
+  });
 
   return (
     <Container>
@@ -18,7 +18,7 @@ const HeroBody: React.FC<HeroBodyProps> = ({ phrases, img }) => {
         <div>
           {phrases
             ? phrases.map((phrase, i) => (
-                <p key={i} data-aos="fade-up">
+                <p key={i} data-aos='fade-up'>
                   {phrase}
                 </p>
               ))
@@ -27,7 +27,7 @@ const HeroBody: React.FC<HeroBodyProps> = ({ phrases, img }) => {
         <img src={img} />
       </BodyItem>
     </Container>
-  )
-}
+  );
+};
 
-export default HeroBody
+export default HeroBody;

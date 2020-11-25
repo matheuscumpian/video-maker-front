@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const StyledInput = styled.input`
   font-size: 15px;
@@ -6,7 +6,7 @@ const StyledInput = styled.input`
   border: 0;
   outline: none;
   width: 100%;
-`
+`;
 
 const Container = styled.div`
   min-width: 300px;
@@ -38,6 +38,6 @@ const Container = styled.div`
       fill: ${props => props.theme.colors.secondary};
     }
   }
-`
+`;
 
-export { StyledInput, Container }
+export { StyledInput, Container };

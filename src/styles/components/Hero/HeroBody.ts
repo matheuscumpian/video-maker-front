@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 90%;
@@ -13,11 +13,11 @@ export const Container = styled.div`
     font-size: 3em;
     margin-top: 1em;
   }
-`
+`;
 export const BodyItem = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 3em;
   align-items: center;
   margin: 5vw 0;
-`
+`;

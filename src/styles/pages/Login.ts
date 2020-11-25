@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export interface LoginProps {
-  primary?: boolean
+  primary?: boolean;
 }
 
 export const Container = styled.div<LoginProps>`
@@ -12,10 +12,7 @@ export const Container = styled.div<LoginProps>`
   align-items: center;
   justify-content: space-evenly;
   flex-direction: row;
-  background-color: ${(props: any) =>
-    props.primary
-      ? props.theme.colors.background
-      : props.theme.colors.secondary};
+  background-color: ${(props: any) => (props.primary ? props.theme.colors.background : props.theme.colors.secondary)};
   h1 {
     font-size: 54px;
     color: ${props => props.theme.colors.text};
@@ -65,6 +62,11 @@ export const Container = styled.div<LoginProps>`
       margin: 0px;
       line-height: 0px;
     }
+
+    svg {
+      height: 22px;
+      width: 22px;
+    }
   }
 
   .inputs {
@@ -101,4 +103,4 @@ export const Container = styled.div<LoginProps>`
     width: 40vw;
     height: 40vh;
   }
-`
+`;
