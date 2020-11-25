@@ -9,6 +9,7 @@ const theme = {
     secondary: '#EB46C0',
     third: '#cc41a8',
     icon: '#8e8e98',
+    error: '#FF453A',
   },
 };
 

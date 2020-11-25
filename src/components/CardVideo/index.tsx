@@ -6,13 +6,10 @@ interface CardProps {
   id?: number;
   thumbnail?: string;
   title?: string;
+  onClick: any;
 }
 
-const CardVideo: React.FC<CardProps> = ({ id, thumbnail, title }) => {
-  const onClick = (): void => {
-    console.log('Abudalebajuneba ', id);
-  };
-
+const CardVideo: React.FC<CardProps> = ({ id, thumbnail, title, onClick }) => {
   return (
     <StyledCardVideo onClick={onClick}>
       <ImageContainer>
