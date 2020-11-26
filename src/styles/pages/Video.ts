@@ -6,8 +6,8 @@ const Container = styled.div`
   height: 100vh;
   justify-content: space-between;
   margin-top: 15vh;
-  padding-left: 2vw;
-  padding-right: 2vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
   width: 100vw;
 
   video {
@@ -39,6 +39,12 @@ const VideoDetails = styled.div`
   max-width: 400px;
 
   Button {
+    svg {
+      height: auto;
+      left: 16px;
+      position: absolute;
+      width: 22px;
+    }
     margin-top: 1.5vh;
   }
 `;

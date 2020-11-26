@@ -6,11 +6,20 @@ import RadioOff from '../../../assets/radiooff.svg';
 import { DragAndDrop } from '../../../components';
 import { Button, Container, ContainerForm, Form, InputContainer, Item, ItemLabel, Section } from '../../../styles/pages/CreateVideo';
 import { DetailsTitle, SectionTitle } from '../../../styles/pages/Video';
+import { useMount } from '../../../hooks';
+import { useDispatch } from 'react-redux';
+import { actions } from '../../../store/states/auth';
 
 const CreateVideo: React.FC = () => {
   const [sentence, setSentence] = useState('');
   const [checked, setChecked] = useState('');
   const items = ['What is', 'Who is', 'The history of'];
+  const dispatch = useDispatch();
+
+  useMount(() => {
+    const token = localStorage.getItem('access_token');
+    dispatch(actions.updateUserAuth(token));
+  });
 
   const onChange = e => {
     setSentence(e.target.value);

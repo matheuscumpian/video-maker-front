@@ -2,6 +2,8 @@ import React from 'react';
 import Head from 'next/head';
 import Header from '../../../components/Header';
 import theme from '../../../styles/theme';
+import DownloadIcon from '../../../assets/download.svg';
+import DeleteIcon from '../../../assets/trashcan.svg';
 import { Button } from '../../../components';
 import {
   Container,
@@ -14,8 +16,18 @@ import {
   VideoDetails,
   VideoTitle,
 } from '../../../styles/pages/Video';
+import { useMount } from '../../../hooks';
+import { actions } from '../../../store/states/auth';
+import { useDispatch } from 'react-redux';
 
 const VideoDetailsPage: React.FC = () => {
+  const dispatch = useDispatch();
+
+  useMount(() => {
+    const token = localStorage.getItem('access_token');
+    dispatch(actions.updateUserAuth(token));
+  });
+
   return (
     <>
       <Head>
@@ -44,9 +56,13 @@ const VideoDetailsPage: React.FC = () => {
             <Section>
               <SectionContent>The history of</SectionContent>
             </Section>
-            <Button isValid>Download Video</Button>
+            <Button isValid>
+              <DownloadIcon />
+              Download Video
+            </Button>
           </DetailsContent>
           <Button color={theme.colors.error} isValid>
+            <DeleteIcon />
             Delete Video
           </Button>
         </VideoDetails>

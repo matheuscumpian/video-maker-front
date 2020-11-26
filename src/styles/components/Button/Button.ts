@@ -7,20 +7,21 @@ export interface ButtonProps {
 }
 
 const StyledButton = styled.button<ButtonProps>`
-  background-color: ${props => (props.isValid ? (props.color ? props.color : props.theme.colors.secondary) : props.theme.colors.icon)};
-  border-radius: 8px;
-  border: 0px;
-  width: 300px;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  display: inline-block;
-  cursor: pointer;
+  background-color: ${props => (props.isValid ? (props.color ? props.color : props.theme.colors.secondary) : props.theme.colors.icon)};
+  border-radius: 4px;
+  border: 0px;
   color: ${props => props.theme.colors.text};
-  font-size: 17px;
-  padding: 11px 0;
-  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  display: flex;
   font-weight: bold;
+  font-size: 17px;
+  justify-content: center;
+  padding: 11px 0;
+  position: relative;
+  text-decoration: none;
+  width: 300px;
 
   :focus {
     outline: 0;
