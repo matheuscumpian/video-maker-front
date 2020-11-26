@@ -48,7 +48,7 @@ const Dashboard: React.FC = () => {
       <Header
         options={[
           { title: 'Create Video', link: '/dashboard/create-video' },
-          { title: 'My Account', link: '/' },
+          { title: 'My Account', link: '/dashboard/my-account' },
         ]}
       />
       <Container>

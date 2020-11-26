@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Header from '../../../components/Header';
 import Check from '../../../assets/check.svg';
+import { useRouter } from 'next/router';
 import {
   Button,
   Card,
@@ -22,12 +23,14 @@ interface Plan {
 }
 
 const MyAccount: React.FC = () => {
+  const router = useRouter();
+
   const onClickLogout = () => {
     // Logout
   };
 
   const onClickChangePlan = () => {
-    // redirect plans
+    router.push('/dashboard/my-account/plans');
   };
 
   return (
