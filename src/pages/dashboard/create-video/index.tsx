@@ -14,8 +14,6 @@ const CreateVideo: React.FC = () => {
   const [sentence, setSentence] = useState('');
   const [checked, setChecked] = useState('');
   const items = ['What is', 'Who is', 'The history of'];
-
-
   const dispatch = useDispatch();
 
   useMount(() => {
