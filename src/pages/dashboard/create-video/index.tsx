@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Header from '../../../components/Header';
-import theme from '../../../styles/theme';
-import { Button, DragAndDrop } from '../../../components';
-import { Container, DetailsContent, DetailsTitle, Section, SectionContent, SectionTitle, VideoDetails } from '../../../styles/pages/Video';
+import RadioOn from '../../../assets/radioon.svg';
+import RadioOff from '../../../assets/radiooff.svg';
+import { DragAndDrop } from '../../../components';
+import { Button, Container, ContainerForm, Form, InputContainer, Item, ItemLabel, Section } from '../../../styles/pages/CreateVideo';
+import { DetailsTitle, SectionTitle } from '../../../styles/pages/Video';
 import { useMount } from '../../../hooks';
 import { useDispatch } from 'react-redux';
 import { actions } from '../../../store/states/auth';
 
 const CreateVideo: React.FC = () => {
-
+  const [sentence, setSentence] = useState('');
+  const [checked, setChecked] = useState('');
+  const items = ['What is', 'Who is', 'The history of'];
   const dispatch = useDispatch();
 
   useMount(() => {
@@ -17,6 +21,13 @@ const CreateVideo: React.FC = () => {
     dispatch(actions.updateUserAuth(token));
   });
 
+  const onChange = e => {
+    setSentence(e.target.value);
+  };
+
+  const onClick = (item: string) => {
+    setChecked(item);
+  };
   return (
     <>
       <Head>
@@ -30,23 +41,27 @@ const CreateVideo: React.FC = () => {
       />
 
       <Container>
-        <VideoDetails>
-          <DetailsContent>
-            <DetailsTitle>Video Details:</DetailsTitle>
+        <ContainerForm>
+          <Form>
+            <DetailsTitle>Creating Video:</DetailsTitle>
             <SectionTitle>Sentence</SectionTitle>
-            <Section>
-              <SectionContent>Lorem ipsum dolor sit amet, consectetur adipiscing</SectionContent>
-            </Section>
+            <InputContainer>
+              <input onChange={onChange} value={sentence} placeholder='Ayrton Senna Formula 1' />
+            </InputContainer>
             <SectionTitle>Semantic</SectionTitle>
             <Section>
-              <SectionContent>The history of</SectionContent>
+              {items.map((item, index) => {
+                return (
+                  <Item onClick={() => onClick(item)} key={index}>
+                    {item === checked ? <RadioOn /> : <RadioOff />}
+                    <ItemLabel>{item}</ItemLabel>
+                  </Item>
+                );
+              })}
             </Section>
-            <Button isValid>Download Video</Button>
-          </DetailsContent>
-          <Button color={theme.colors.error} isValid>
-            Delete Video
-          </Button>
-        </VideoDetails>
+          </Form>
+          <Button>Create Video</Button>
+        </ContainerForm>
         <DragAndDrop></DragAndDrop>
       </Container>
     </>

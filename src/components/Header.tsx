@@ -4,6 +4,9 @@ import { Container, Brand, Options } from '../styles/components/Header';
 import RobotSVG from '../assets/robot.svg';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useSelector } from 'react-redux';
+import { ApplicationState } from '../store/index';
+import { UserState } from '../models/User';
 
 export interface Option {
   title: string;
@@ -16,6 +19,7 @@ export interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ options }) => {
   const [showHeader, setShowHeader] = useState(true);
+  const { authenticated } = useSelector<ApplicationState, UserState>(state => state.auth);
   const handleScroll = () => {
     const position = window.pageYOffset;
     if (position <= 0) setShowHeader(true);
@@ -42,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ options }) => {
         >
           <Container>
             <Brand>
-              <Link href='/'>
+              <Link href={authenticated ? '/dashboard' : '/'}>
                 <a>
                   <RobotSVG />
                 </a>
