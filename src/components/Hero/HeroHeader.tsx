@@ -8,4 +8,4 @@ export interface HeroHeaderProps {
 
 const HeroHeader: React.FC<HeroHeaderProps> = ({ logo, name }) => <Container />;
 
-export default HeroHeader;
+export { HeroHeader };

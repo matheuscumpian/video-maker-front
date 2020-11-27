@@ -18,4 +18,4 @@ const CardVideoSkeleton: React.FC = () => {
   );
 };
 
-export default CardVideoSkeleton;
+export { CardVideoSkeleton };

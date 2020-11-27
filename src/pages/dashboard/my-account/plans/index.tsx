@@ -1,7 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import Header from '../../../../components/Header';
-import { PlanCard } from '../../../../components';
+import { Header, PlanCard } from '../../../../components/';
 import { Container } from '../../../../styles/pages/Plans';
 
 const Plans: React.FC = () => {

@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
-import Header from '../../components/Header';
 import Empty from '../../assets/empty.svg';
 import { useAuth, useMount, useUpdateEffect } from '../../hooks';
 import { getVideos } from '../../store/states/video';
-import { CardVideo, CardVideoSkeleton } from '../../components';
+import { CardVideo, CardVideoSkeleton, Header } from '../../components';
 import { ApplicationState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { VideoParams, VideoState } from '../../models/Video';

@@ -29,4 +29,4 @@ const Button: React.FC<ButtonProps> = ({ color, isValid, onClick, children, onSu
   );
 };
 
-export default Button;
+export { Button };

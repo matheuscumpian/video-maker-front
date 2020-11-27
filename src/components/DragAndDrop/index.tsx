@@ -99,4 +99,4 @@ const DragAndDrop: React.FC<DragAndDropsProps> = ({ onUpload }) => {
   );
 };
 
-export default DragAndDrop;
+export { DragAndDrop };

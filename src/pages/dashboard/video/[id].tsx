@@ -1,10 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
-import Header from '../../../components/Header';
 import theme from '../../../styles/theme';
 import DownloadIcon from '../../../assets/download.svg';
 import DeleteIcon from '../../../assets/trashcan.svg';
-import { Button } from '../../../components';
+import { Button, Header } from '../../../components';
 import {
   Container,
   DetailsContent,

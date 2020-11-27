@@ -30,4 +30,4 @@ const HeroBody: React.FC<HeroBodyProps> = ({ phrases, img }) => {
   );
 };
 
-export default HeroBody;
+export { HeroBody };

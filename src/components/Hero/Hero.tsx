@@ -1,9 +1,9 @@
-import HeroBody, { HeroBodyProps } from './HeroBody';
-import HeroHeader, { HeroHeaderProps } from './HeroHeader';
+import { HeroBody, HeroBodyProps } from './HeroBody';
+import { HeroHeader, HeroHeaderProps } from './HeroHeader';
 
 import React from 'react';
-import { Container } from '../../styles/components/Hero/Hero';
 import Rocket from '../../assets/rocket.svg';
+import { Container } from '../../styles/components/Hero/Hero';
 
 interface HeroProps {
   header?: HeroHeaderProps;
@@ -19,4 +19,4 @@ const Hero: React.FC<HeroProps> = ({ header, body, image = false }) => (
   </Container>
 );
 
-export default Hero;
+export { Hero };
