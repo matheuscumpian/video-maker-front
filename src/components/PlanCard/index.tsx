@@ -43,4 +43,4 @@ const PlanCard: React.FC<PlanProps> = ({ name, price, yearPrice }) => {
   );
 };
 
-export default PlanCard;
+export { PlanCard };

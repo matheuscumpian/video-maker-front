@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
-import Header from '../../../components/Header';
 import Check from '../../../assets/check.svg';
+import { Header } from '../../../components';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { actions } from '../../../store/states/auth';

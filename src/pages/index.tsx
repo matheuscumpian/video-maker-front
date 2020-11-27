@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
 import AOS from 'aos';
-import { Container } from '../styles/pages/Home';
-import Hero from '../components/Hero/Hero';
-import { Container as Row } from '../styles/components/Row/Row';
 import Marketing from '../assets/marketing.svg';
 import Social from '../assets/social.svg';
-import Header from '../components/Header';
+import { Container } from '../styles/pages/Home';
+import { Header, Hero } from '../components';
+import { Container as Row } from '../styles/components/Row/Row';
 import { useDispatch } from 'react-redux';
 import { actions } from '../store/states/auth';
 import { useMount } from '../hooks';

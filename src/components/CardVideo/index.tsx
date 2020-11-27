@@ -20,4 +20,4 @@ const CardVideo: React.FC<CardProps> = ({ id, thumbnail, title, onClick }) => {
   );
 };
 
-export default CardVideo;
+export { CardVideo };

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
-import Header from '../../../components/Header';
 import RadioOn from '../../../assets/radioon.svg';
 import RadioOff from '../../../assets/radiooff.svg';
+import { Header } from '../../../components';
 import { DragAndDrop } from '../../../components';
 import { Button, Container, ContainerForm, Form, InputContainer, Item, ItemLabel, Section } from '../../../styles/pages/CreateVideo';
 import { DetailsTitle, SectionTitle } from '../../../styles/pages/Video';

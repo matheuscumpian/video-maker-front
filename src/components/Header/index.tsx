@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-import { Container, Brand, Options } from '../styles/components/Header';
-import RobotSVG from '../assets/robot.svg';
+import RobotSVG from '../../assets/robot.svg';
 import Link from 'next/link';
+import { Container, Brand, Options } from '../../styles/components/Header';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
-import { ApplicationState } from '../store/index';
-import { UserState } from '../models/User';
+import { ApplicationState } from '../../store/index';
+import { UserState } from '../../models/User';
 
 export interface Option {
   title: string;
@@ -69,4 +69,4 @@ const Header: React.FC<HeaderProps> = ({ options }) => {
   );
 };
 
-export default Header;
+export { Header };
