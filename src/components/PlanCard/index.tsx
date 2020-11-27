@@ -10,7 +10,7 @@ interface PlanProps {
   name: string;
   price: string;
   yearPrice: string;
-  feature: Feature[];
+  feature?: Feature[];
 }
 
 const PlanCard: React.FC<PlanProps> = ({ name, price, yearPrice }) => {
