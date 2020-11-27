@@ -36,7 +36,7 @@ const CreateVideo: React.FC = () => {
       <Header
         options={[
           { title: 'Dashboard', link: '/dashboard' },
-          { title: 'My Account', link: '/dashboard' },
+          { title: 'My Account', link: '/dashboard/my-account' },
         ]}
       />
 
