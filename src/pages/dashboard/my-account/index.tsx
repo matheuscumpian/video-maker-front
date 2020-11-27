@@ -2,6 +2,9 @@ import React from 'react';
 import Head from 'next/head';
 import Header from '../../../components/Header';
 import Check from '../../../assets/check.svg';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import { actions } from '../../../store/states/auth';
 import {
   Button,
   Card,
@@ -22,12 +25,16 @@ interface Plan {
 }
 
 const MyAccount: React.FC = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const onClickLogout = () => {
-    // Logout
+    router.push('/');
+    dispatch(actions.logout());
   };
 
   const onClickChangePlan = () => {
-    // redirect plans
+    router.push('/dashboard/my-account/plans');
   };
 
   return (
