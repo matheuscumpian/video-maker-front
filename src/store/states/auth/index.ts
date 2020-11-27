@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken';
 import { TypeStatus } from '../../../models';
 import NProgress from 'nprogress';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
 
 const INITIAL_STATE: UserState = {
   user: {
@@ -78,7 +77,7 @@ const updateUserAuth = (state: UserState, action: PayloadAction<string>) => {
   };
 };
 
-const logout = (state: UserState, action: PayloadAction<any>) => {
+const logout = (state: UserState): UserState => {
   localStorage.removeItem('access_token');
   return {
     ...state,
