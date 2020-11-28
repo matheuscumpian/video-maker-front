@@ -12,7 +12,17 @@ export interface VideoParams extends Semantic {
 }
 
 export interface VideoState {
-  videos: VideoParams[];
+  videos: Video[];
   error: string;
   status: TypeStatus;
+}
+
+export interface Video {
+  _id: string;
+  name: string;
+  sentence: string;
+  semantic: string;
+  thumbnail?: string;
+  user: string;
+  url: string;
 }
