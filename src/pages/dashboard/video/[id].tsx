@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import theme from '../../../styles/theme';
 import DownloadIcon from '../../../assets/download.svg';
 import DeleteIcon from '../../../assets/trashcan.svg';
+import { ApplicationState } from '../../../store';
+import { Video, VideoState } from '../../../models/Video';
+import { useMount } from '../../../hooks';
+import { actions } from '../../../store/states/auth';
 import { Button, Header } from '../../../components';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
   DetailsContent,
@@ -15,17 +20,22 @@ import {
   VideoDetails,
   VideoTitle,
 } from '../../../styles/pages/Video';
-import { useMount } from '../../../hooks';
-import { actions } from '../../../store/states/auth';
-import { useDispatch } from 'react-redux';
 
 const VideoDetailsPage: React.FC = () => {
   const dispatch = useDispatch();
+  const [id, setID] = useState('');
+  const state = useSelector<ApplicationState, VideoState>(state => state.video);
 
   useMount(() => {
+    setID(getID());
     const token = localStorage.getItem('access_token');
     dispatch(actions.updateUserAuth(token));
   });
+
+  const getID = (): string => {
+    const urlArray = window.location.href.split('/');
+    return urlArray.pop();
+  };
 
   return (
     <>
