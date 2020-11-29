@@ -5,8 +5,8 @@ import { Header } from '../../../components';
 import { useRouter } from 'next/router';
 import { actions } from '../../../store/states/auth';
 import { useMount } from '../../../hooks';
-import { ApplicationState } from '../../store';
-import { UserState } from '../../models/User';
+import { ApplicationState } from '../../../store';
+import { UserState } from '../../../models/User';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
