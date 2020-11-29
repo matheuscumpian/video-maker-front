@@ -13,7 +13,7 @@ const Container = styled.div`
   video {
     height: auto;
     margin-right: 2vw;
-    width: 1024px;
+    width: 100%;
   }
 `;
 
@@ -53,6 +53,7 @@ const VideoContainer = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
+  width: 65%;
 `;
 
 const VideoTitle = styled.h3`

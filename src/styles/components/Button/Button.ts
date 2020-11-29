@@ -31,7 +31,7 @@ const StyledButton = styled.button<ButtonProps>`
     ${props =>
       props.isValid
         ? css`
-            background-color: ${props => props.theme.colors.third};
+            background-color: ${props => (props.color ? props.color : props.theme.colors.third)};
           `
         : css`
             cursor: not-allowed;
