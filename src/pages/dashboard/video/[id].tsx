@@ -3,6 +3,7 @@ import Head from 'next/head';
 import theme from '../../../styles/theme';
 import DownloadIcon from '../../../assets/download.svg';
 import DeleteIcon from '../../../assets/trashcan.svg';
+import { useRouter } from 'next/router';
 import { VideoService } from '../../../services/Video';
 import { Video } from '../../../models/Video';
 import { useMount } from '../../../hooks';
@@ -24,6 +25,7 @@ import {
 
 const VideoDetailsPage: React.FC = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [video, setVideo] = useState<Video>();
 
   useMount(() => {
@@ -31,6 +33,31 @@ const VideoDetailsPage: React.FC = () => {
     dispatch(actions.updateUserAuth(token));
     getVideo();
   });
+
+  const deleteVideo = (id: string) => {
+    VideoService.deleteVideo(id)
+      .then(() => {
+        toast.success('Success!', {
+          autoClose: 3000,
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        });
+      })
+      .catch(err => {
+        toast.error('😥 Parece que houve um problema!', {
+          autoClose: 4000,
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        });
+        return err;
+      });
+  };
 
   const getID = (): string => {
     const urlArray = window.location.href.split('/');
@@ -88,7 +115,7 @@ const VideoDetailsPage: React.FC = () => {
               Download Video
             </Button>
           </DetailsContent>
-          <Button color={theme.colors.error} isValid>
+          <Button color={theme.colors.error} isValid onClick={deleteVideo}>
             <DeleteIcon />
             Delete Video
           </Button>

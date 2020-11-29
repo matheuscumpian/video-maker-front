@@ -1,5 +1,4 @@
 import axios from './index';
-import Axios from 'axios';
 import { Video, VideoParams } from '../models/Video';
 import { AxiosResponse } from 'axios';
 
