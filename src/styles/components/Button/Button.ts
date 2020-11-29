@@ -29,9 +29,11 @@ const StyledButton = styled.button<ButtonProps>`
 
   :hover {
     ${props =>
-      props.isValid
+      props.color
+        ? props.color
+        : props.isValid
         ? css`
-            background-color: ${props => (props.color ? props.color : props.theme.colors.third)};
+            background-color: ${props => props.theme.colors.third};
           `
         : css`
             cursor: not-allowed;
