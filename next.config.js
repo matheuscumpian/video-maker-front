@@ -1,9 +1,9 @@
-const withImages = require('next-images')
+const withImages = require('next-images');
 
 module.exports = withImages({
   esModule: true,
   env: {
-    API_URL: 'http://localhost:8080/api',
-    DOMAIN: 'http://localhost:3000'
-  }
-})
+    API_URL: 'https://video-maker-back.herokuapp.com/api',
+    DOMAIN: 'https://video-maker-back.herokuapp.com',
+  },
+});

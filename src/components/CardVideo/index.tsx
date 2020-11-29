@@ -3,13 +3,13 @@ import ImageVideo from '../../assets/images/videoImageSmall.jpg';
 import { ImageContainer, StyledCardVideo, Title } from '../../styles/components/CardVideo';
 
 interface CardProps {
-  id?: number;
+  id?: string;
   thumbnail?: string;
   title?: string;
   onClick: any;
 }
 
-const CardVideo: React.FC<CardProps> = ({ id, thumbnail, title, onClick }) => {
+const CardVideo: React.FC<CardProps> = ({ thumbnail, title, onClick }) => {
   return (
     <StyledCardVideo onClick={onClick}>
       <ImageContainer>
