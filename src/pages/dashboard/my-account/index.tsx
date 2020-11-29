@@ -2,9 +2,12 @@ import React from 'react';
 import Head from 'next/head';
 import Check from '../../../assets/check.svg';
 import { Header } from '../../../components';
-import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { actions } from '../../../store/states/auth';
+import { useMount } from '../../../hooks';
+import { ApplicationState } from '../../../store';
+import { UserState } from '../../../models/User';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
   Card,
@@ -25,8 +28,14 @@ interface Plan {
 }
 
 const MyAccount: React.FC = () => {
+  const { authenticated, user } = useSelector<ApplicationState, UserState>(state => state.auth);
   const dispatch = useDispatch();
   const router = useRouter();
+
+  useMount(() => {
+    const token = localStorage.getItem('access_token');
+    dispatch(actions.updateUserAuth(token));
+  });
 
   const onClickLogout = () => {
     router.push('/');
@@ -37,7 +46,7 @@ const MyAccount: React.FC = () => {
     router.push('/dashboard/my-account/plans');
   };
 
-  return (
+  return authenticated ? (
     <>
       <Head>
         <title>Video</title>
@@ -50,9 +59,9 @@ const MyAccount: React.FC = () => {
             <Logout onClick={onClickLogout}>Logout</Logout>
           </CardHeader>
           <SectionTitle>Nome</SectionTitle>
-          <Section>Dino da Silva Sauro</Section>
+          <Section>{user ? user.name : ''}</Section>
           <SectionTitle>Email</SectionTitle>
-          <Section>dinodasilva@sauro.com</Section>
+          <Section>{user ? user.email : ''}</Section>
         </Card>
         <Card>
           <CardHeader>
@@ -70,6 +79,8 @@ const MyAccount: React.FC = () => {
         </Card>
       </Container>
     </>
+  ) : (
+    <></>
   );
 };
 
