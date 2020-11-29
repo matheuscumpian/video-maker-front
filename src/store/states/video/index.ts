@@ -1,6 +1,6 @@
 import NProgress from 'nprogress';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { VideoParams, VideoState } from '../../../models/Video';
+import { VideoState } from '../../../models/Video';
 import { VideoService } from '../../../services/Video';
 import { toast } from 'react-toastify';
 
@@ -10,8 +10,8 @@ const INITIAL_STATE: VideoState = {
   status: 'NONE',
 };
 
-const getVideos = createAsyncThunk('Video/getVideos', (payload, { rejectWithValue }) =>
-  VideoService.getVideos()
+const getVideos = createAsyncThunk('Video/getVideos', (userId: string, { rejectWithValue }) =>
+  VideoService.getVideos(userId)
     .then(({ data }) => {
       return data;
     })

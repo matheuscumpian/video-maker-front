@@ -6,13 +6,23 @@ export interface Semantic {
 
 export interface VideoParams extends Semantic {
   image?: string;
-  title: string;
+  name: string;
   sentence?: string;
   videoURL?: string;
 }
 
 export interface VideoState {
-  videos: VideoParams[];
+  videos: Video[];
   error: string;
   status: TypeStatus;
+}
+
+export interface Video {
+  _id: string;
+  name: string;
+  sentence: string;
+  semantic: string;
+  thumbnail?: string;
+  user: string;
+  url: string;
 }

@@ -10,6 +10,7 @@ const INITIAL_STATE: UserState = {
   user: {
     email: '',
     name: '',
+    _id: '',
   },
   authenticated: false,
   error: '',
@@ -26,6 +27,7 @@ const postAuth = createAsyncThunk('Auth/postAuth', (payload: AuthParams, { rejec
       return {
         email: user.email,
         name: user.name,
+        _id: user._id,
       };
     })
     .then((user: User) => {
@@ -72,6 +74,7 @@ const updateUserAuth = (state: UserState, action: PayloadAction<string>) => {
     user: {
       email: user?.email,
       name: user?.name,
+      _id: user?._id,
     },
     authenticated: !!user,
   };

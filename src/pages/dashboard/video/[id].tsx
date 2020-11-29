@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import theme from '../../../styles/theme';
 import DownloadIcon from '../../../assets/download.svg';
 import DeleteIcon from '../../../assets/trashcan.svg';
+import { useRouter } from 'next/router';
+import { VideoService } from '../../../services/Video';
+import { Video } from '../../../models/Video';
+import { useMount } from '../../../hooks';
+import { actions } from '../../../store/states/auth';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 import { Button, Header } from '../../../components';
 import {
   Container,
@@ -15,17 +22,66 @@ import {
   VideoDetails,
   VideoTitle,
 } from '../../../styles/pages/Video';
-import { useMount } from '../../../hooks';
-import { actions } from '../../../store/states/auth';
-import { useDispatch } from 'react-redux';
 
 const VideoDetailsPage: React.FC = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
+  const [video, setVideo] = useState<Video>();
 
   useMount(() => {
     const token = localStorage.getItem('access_token');
     dispatch(actions.updateUserAuth(token));
+    getVideo();
   });
+
+  const deleteVideo = () => {
+    VideoService.deleteVideo(video._id)
+      .then(() => {
+        toast.success('Success!', {
+          autoClose: 3000,
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          onClose: () => router.back(),
+        });
+      })
+      .catch(err => {
+        toast.error('😥 Parece que houve um problema!', {
+          autoClose: 4000,
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        });
+        return err;
+      });
+  };
+
+  const getID = (): string => {
+    const urlArray = window.location.href.split('/');
+    return urlArray.pop();
+  };
+
+  const getVideo = () => {
+    VideoService.getVideoByID(getID())
+      .then(({ data }) => {
+        setVideo(data);
+      })
+      .catch(err => {
+        toast.error('😥 Parece que houve um problema!', {
+          autoClose: 4000,
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        });
+        return err;
+      });
+  };
 
   return (
     <>
@@ -41,26 +97,26 @@ const VideoDetailsPage: React.FC = () => {
 
       <Container>
         <VideoContainer>
-          <video src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4' controls></video>
-          <VideoTitle>Lorem ipsum dolor sit amet</VideoTitle>
+          <video src={!video ? '' : video.url} controls></video>
+          <VideoTitle>{!video ? '' : video.name}</VideoTitle>
         </VideoContainer>
         <VideoDetails>
           <DetailsContent>
             <DetailsTitle>Video Details:</DetailsTitle>
             <SectionTitle>Sentence</SectionTitle>
             <Section>
-              <SectionContent>Lorem ipsum dolor sit amet, consectetur adipiscing</SectionContent>
+              <SectionContent>{!video ? '' : video.sentence}</SectionContent>
             </Section>
             <SectionTitle>Semantic</SectionTitle>
             <Section>
-              <SectionContent>The history of</SectionContent>
+              <SectionContent>{!video ? '' : video.semantic}</SectionContent>
             </Section>
             <Button isValid>
               <DownloadIcon />
               Download Video
             </Button>
           </DetailsContent>
-          <Button color={theme.colors.error} isValid>
+          <Button color={theme.colors.error} isValid onClick={deleteVideo}>
             <DeleteIcon />
             Delete Video
           </Button>
