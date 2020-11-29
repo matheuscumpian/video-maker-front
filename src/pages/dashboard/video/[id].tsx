@@ -3,12 +3,13 @@ import Head from 'next/head';
 import theme from '../../../styles/theme';
 import DownloadIcon from '../../../assets/download.svg';
 import DeleteIcon from '../../../assets/trashcan.svg';
-import { ApplicationState } from '../../../store';
-import { Video, VideoState } from '../../../models/Video';
+import { VideoService } from '../../../services/Video';
+import { Video } from '../../../models/Video';
 import { useMount } from '../../../hooks';
 import { actions } from '../../../store/states/auth';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 import { Button, Header } from '../../../components';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
   DetailsContent,
@@ -23,18 +24,35 @@ import {
 
 const VideoDetailsPage: React.FC = () => {
   const dispatch = useDispatch();
-  const [id, setID] = useState('');
-  const state = useSelector<ApplicationState, VideoState>(state => state.video);
+  const [video, setVideo] = useState<Video>();
 
   useMount(() => {
-    setID(getID());
     const token = localStorage.getItem('access_token');
     dispatch(actions.updateUserAuth(token));
+    getVideo();
   });
 
   const getID = (): string => {
     const urlArray = window.location.href.split('/');
     return urlArray.pop();
+  };
+
+  const getVideo = () => {
+    VideoService.getVideoByID(getID())
+      .then(({ data }) => {
+        setVideo(data);
+      })
+      .catch(err => {
+        toast.error('😥 Parece que houve um problema!', {
+          autoClose: 4000,
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        });
+        return err;
+      });
   };
 
   return (
@@ -51,19 +69,19 @@ const VideoDetailsPage: React.FC = () => {
 
       <Container>
         <VideoContainer>
-          <video src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4' controls></video>
-          <VideoTitle>Lorem ipsum dolor sit amet</VideoTitle>
+          <video src={!video ? '' : video.url} controls></video>
+          <VideoTitle>{!video ? '' : video.name}</VideoTitle>
         </VideoContainer>
         <VideoDetails>
           <DetailsContent>
             <DetailsTitle>Video Details:</DetailsTitle>
             <SectionTitle>Sentence</SectionTitle>
             <Section>
-              <SectionContent>Lorem ipsum dolor sit amet, consectetur adipiscing</SectionContent>
+              <SectionContent>{!video ? '' : video.sentence}</SectionContent>
             </Section>
             <SectionTitle>Semantic</SectionTitle>
             <Section>
-              <SectionContent>The history of</SectionContent>
+              <SectionContent>{!video ? '' : video.semantic}</SectionContent>
             </Section>
             <Button isValid>
               <DownloadIcon />

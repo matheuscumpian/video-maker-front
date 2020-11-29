@@ -1,5 +1,6 @@
 import axios from './index';
-import { VideoParams } from '../models/Video';
+import Axios from 'axios';
+import { Video, VideoParams } from '../models/Video';
 import { AxiosResponse } from 'axios';
 
 export class VideoService {
@@ -11,20 +12,20 @@ export class VideoService {
     });
   }
 
-  static getVideoByID(id: string): Promise<AxiosResponse<VideoParams>> {
+  static getVideoByID(id: string): Promise<AxiosResponse<Video>> {
     return axios.get(`/video/${id}`);
   }
 
-  static createVideo({ image, title, sentence, semantic }: VideoParams): Promise<AxiosResponse> {
+  static createVideo({ image, name, sentence, semantic }: VideoParams): Promise<AxiosResponse> {
     return axios.post('/video', {
       image: image,
-      title: title,
+      name: name,
       sentence: sentence,
       semantic: semantic,
     });
   }
 
-  static deleteVideo(id: number): Promise<AxiosResponse> {
+  static deleteVideo(id: string): Promise<AxiosResponse> {
     return axios.delete(`/video/${id}`);
   }
 }
