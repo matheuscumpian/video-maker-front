@@ -34,8 +34,8 @@ const VideoDetailsPage: React.FC = () => {
     getVideo();
   });
 
-  const deleteVideo = (id: string) => {
-    VideoService.deleteVideo(id)
+  const deleteVideo = () => {
+    VideoService.deleteVideo(video._id)
       .then(() => {
         toast.success('Success!', {
           autoClose: 3000,
@@ -44,6 +44,7 @@ const VideoDetailsPage: React.FC = () => {
           closeOnClick: true,
           pauseOnHover: false,
           draggable: true,
+          onClose: () => router.back(),
         });
       })
       .catch(err => {
