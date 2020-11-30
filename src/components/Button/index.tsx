@@ -22,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({ color, isValid, onClick, children, onSu
       disabled={!isValid && !loading}
       onClick={onClick}
       isLoading={loading}
-      type='submit'
+      type={'submit'}
     >
       {!loading ? children : <BeatLoader size={10} color={'#EB46C0'} loading={true} />}
     </StyledButton>

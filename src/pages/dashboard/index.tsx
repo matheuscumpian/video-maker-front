@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Empty from '../../assets/empty.svg';
 import { useMount, useUpdateEffect } from '../../hooks';
@@ -25,7 +25,6 @@ const Dashboard: React.FC = () => {
   useMount(() => {
     const token = localStorage.getItem('access_token');
     dispatch(actions.updateUserAuth(token));
-    dispatch(getVideos(user._id));
   });
 
   useUpdateEffect(() => {
@@ -33,6 +32,10 @@ const Dashboard: React.FC = () => {
       dispatch(getVideos(user._id));
     }
   }, [authenticated]);
+
+  useEffect(() => {
+    dispatch(getVideos(user._id));
+  }, [dispatch, user]);
 
   useUpdateEffect(() => {
     if (status === 'LOADING') {

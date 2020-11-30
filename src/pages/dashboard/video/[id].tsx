@@ -113,6 +113,9 @@ const VideoDetailsPage: React.FC = () => {
             </Section>
             <Button isValid>
               <DownloadIcon />
+              <a href={video?.url} download='video.mp4'>
+                TESTE
+              </a>
               Download Video
             </Button>
           </DetailsContent>
