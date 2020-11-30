@@ -1,10 +1,23 @@
 import React from 'react';
 import Head from 'next/head';
-import { Header, PlanCard } from '../../../../components/';
 import { Container } from '../../../../styles/pages/Plans';
+import { useMount } from '../../../../hooks';
+import { Header, PlanCard } from '../../../../components/';
+import { ApplicationState } from '../../../../store';
+import { actions } from '../../../../store/states/auth';
+import { UserState } from '../../../../models/User';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Plans: React.FC = () => {
-  return (
+  const { authenticated, user } = useSelector<ApplicationState, UserState>(state => state.auth);
+  const dispatch = useDispatch();
+
+  useMount(() => {
+    const token = localStorage.getItem('access_token');
+    dispatch(actions.updateUserAuth(token));
+  });
+
+  return authenticated ? (
     <>
       <Head>
         <title>Video</title>
@@ -21,6 +34,8 @@ const Plans: React.FC = () => {
         <PlanCard name='Plano Premium' price='$39.90' yearPrice='$400.00' />
       </Container>
     </>
+  ) : (
+    <></>
   );
 };
 
