@@ -7,7 +7,7 @@ import { useUpdateEffect } from '../../hooks';
 import { CloseButton, Container } from '../../styles/components/DragAndDrop';
 import { toast } from 'react-toastify';
 
-const validExtension = ['jpeg', 'jpg', 'png'];
+const validExtension = ['png'];
 
 interface DragAndDropsProps {
   onUpload?: any;
@@ -19,7 +19,6 @@ const DragAndDrop: React.FC<DragAndDropsProps> = ({ onUpload, file, setFile }) =
   const drop = useRef(null);
   const drag = useRef(null);
   const [dragging, setDragging] = useState(false);
-  const [isValidFile, setIsValidFile] = useState(true);
 
   useEffect(() => {
     drop.current.addEventListener('dragover', handleDragOver);
@@ -55,11 +54,8 @@ const DragAndDrop: React.FC<DragAndDropsProps> = ({ onUpload, file, setFile }) =
     const { files } = e.dataTransfer;
 
     if (files && files.length) {
-      if (validateFile(files[0].name)) {
-        setIsValidFile(true);
-      } else {
-        setIsValidFile(false);
-        return toast.error('😐 Select a valid file extension: .jpg, .png, .jpeg', {
+      if (!validateFile(files[0].name)) {
+        return toast.error('😐 Select a image with .png extension', {
           autoClose: false,
           position: 'top-center',
           hideProgressBar: false,

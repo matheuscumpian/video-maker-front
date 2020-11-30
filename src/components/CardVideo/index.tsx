@@ -1,6 +1,7 @@
 import React from 'react';
-import ImageVideo from '../../assets/images/videoImageSmall.jpg';
 import { ImageContainer, StyledCardVideo, Title } from '../../styles/components/CardVideo';
+import { BounceLoader, MoonLoader } from 'react-spinners';
+import styled from 'styled-components';
 
 interface CardProps {
   id?: string;
@@ -9,13 +10,32 @@ interface CardProps {
   onClick: any;
 }
 
+const LoadingCard = styled.div`
+  padding: 24px;
+`;
+
+const ProcessingLabel = styled.p`
+  font-size: 12px;
+  text-align: center;
+  padding: 24px;
+`;
+
 const CardVideo: React.FC<CardProps> = ({ thumbnail, title, onClick }) => {
+  const processing = thumbnail === 'processing';
+
   return (
     <StyledCardVideo onClick={onClick}>
       <ImageContainer>
-        <img alt='Video thumbnail' src={thumbnail || ImageVideo} />
+        {!processing ? (
+          <img alt='Video thumbnail' src={thumbnail} />
+        ) : (
+          <LoadingCard>
+            <MoonLoader size={70} color={'#EB46C0'} loading={true} />
+          </LoadingCard>
+        )}
       </ImageContainer>
-      <Title>{title || 'Lorem ipsum dolor sit amet'}</Title>
+      <Title>{title}</Title>
+      {processing && <ProcessingLabel>Processing video...</ProcessingLabel>}
     </StyledCardVideo>
   );
 };

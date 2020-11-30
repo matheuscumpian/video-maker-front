@@ -7,7 +7,7 @@ import { DragAndDrop } from '../../../components';
 import { Button, Container, ContainerForm, Form, InputContainer, Item, ItemLabel, Section } from '../../../styles/pages/CreateVideo';
 import { DetailsTitle, SectionTitle } from '../../../styles/pages/Video';
 import { useMount } from '../../../hooks';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../../store/states/auth';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -15,8 +15,9 @@ import NProgress from 'nprogress';
 import { Semantic, VideoParams } from '../../../models/Video';
 import { VideoService } from '../../../services/Video';
 import { toast } from 'react-toastify';
-import { ApplicationState } from "../../../store";
-import { UserState } from "../../../models/User";
+import { ApplicationState } from '../../../store';
+import { UserState } from '../../../models/User';
+import { useRouter } from 'next/router';
 
 const validationSchema = Yup.object({
   name: Yup.string().email().required('Invalid e-mail'),
@@ -29,6 +30,8 @@ const CreateVideo: React.FC = () => {
   const items = ['What is', 'Who is', 'The history of'];
   const dispatch = useDispatch();
   const [file, setFile] = useState<any>();
+  const { authenticated, user } = useSelector<ApplicationState, UserState>(state => state.auth);
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -53,11 +56,21 @@ const CreateVideo: React.FC = () => {
       name: formik.values.name,
       semantic: (formik.values.semantic as unknown) as Semantic,
       sentence: formik.values.sentence,
-      image: '',
-      id: ,
+      image: file,
     };
-    VideoService.createVideo(createVideoPayload)
-      .then(r => NProgress.end())
+    VideoService.createVideo(createVideoPayload, user._id)
+      .then(video => {
+        NProgress.done();
+        toast.success(`💘 Video was created with success`, {
+          autoClose: 4000,
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        });
+        router.push('/dashboard');
+      })
       .catch(err =>
         toast.error(`😐 ${err.message}`, {
           autoClose: 4000,
@@ -75,60 +88,62 @@ const CreateVideo: React.FC = () => {
     setChecked(item);
   };
   return (
-    <>
-      <Head>
-        <title>Video</title>
-      </Head>
-      <Header
-        options={[
-          { title: 'Dashboard', link: '/dashboard' },
-          { title: 'My Account', link: '/dashboard/my-account' },
-        ]}
-      />
+    authenticated && (
+      <>
+        <Head>
+          <title>Video</title>
+        </Head>
+        <Header
+          options={[
+            { title: 'Dashboard', link: '/dashboard' },
+            { title: 'My Account', link: '/dashboard/my-account' },
+          ]}
+        />
 
-      <Container>
-        <ContainerForm>
-          <Form>
-            <DetailsTitle>Creating Video</DetailsTitle>
-            <SectionTitle>Name</SectionTitle>
-            <InputContainer>
-              <input
-                name='name'
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.name}
-                placeholder='Video of Ayrton Senna'
-              />
-            </InputContainer>
-            <SectionTitle>Sentence</SectionTitle>
-            <InputContainer>
-              <input
-                name='sentence'
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.sentence}
-                placeholder='Ayrton Senna Formula 1'
-              />
-            </InputContainer>
-            <SectionTitle>Semantic</SectionTitle>
-            <Section>
-              {items.map((item, index) => {
-                return (
-                  <Item onClick={() => onClick(item)} key={index}>
-                    {item === checked ? <RadioOn /> : <RadioOff />}
-                    <ItemLabel>{item}</ItemLabel>
-                  </Item>
-                );
-              })}
-            </Section>
-          </Form>
-          <Button onClick={e => handleSubmit(e)} type='submit'>
-            Create Video
-          </Button>
-        </ContainerForm>
-        <DragAndDrop file={file} setFile={setFile}></DragAndDrop>
-      </Container>
-    </>
+        <Container>
+          <ContainerForm>
+            <Form>
+              <DetailsTitle>Creating Video</DetailsTitle>
+              <SectionTitle>Name</SectionTitle>
+              <InputContainer>
+                <input
+                  name='name'
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.name}
+                  placeholder='Video of Ayrton Senna'
+                />
+              </InputContainer>
+              <SectionTitle>Sentence</SectionTitle>
+              <InputContainer>
+                <input
+                  name='sentence'
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.sentence}
+                  placeholder='Ayrton Senna Formula 1'
+                />
+              </InputContainer>
+              <SectionTitle>Semantic</SectionTitle>
+              <Section>
+                {items.map((item, index) => {
+                  return (
+                    <Item onClick={() => onClick(item)} key={index}>
+                      {item === checked ? <RadioOn /> : <RadioOff />}
+                      <ItemLabel>{item}</ItemLabel>
+                    </Item>
+                  );
+                })}
+              </Section>
+            </Form>
+            <Button onClick={e => handleSubmit(e)} type='submit'>
+              Create Video
+            </Button>
+          </ContainerForm>
+          <DragAndDrop file={file} setFile={setFile}></DragAndDrop>
+        </Container>
+      </>
+    )
   );
 };
 

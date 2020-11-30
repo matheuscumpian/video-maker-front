@@ -11,7 +11,6 @@ import { Container, EmptyList, ListCards } from '../../styles/pages/Dashboard';
 import { useRouter } from 'next/router';
 import { UserState } from '../../models/User';
 import { actions } from '../../store/states/auth';
-import { VideoService } from '../../services/Video';
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
@@ -28,14 +27,8 @@ const Dashboard: React.FC = () => {
   });
 
   useUpdateEffect(() => {
-    if (authenticated) {
-      dispatch(getVideos(user._id));
-    }
-  }, [authenticated]);
-
-  useEffect(() => {
     dispatch(getVideos(user._id));
-  }, [dispatch, user]);
+  }, [user]);
 
   useUpdateEffect(() => {
     if (status === 'LOADING') {
