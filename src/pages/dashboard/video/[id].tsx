@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import theme from '../../../styles/theme';
 import DownloadIcon from '../../../assets/download.svg';
@@ -31,20 +31,23 @@ const VideoDetailsPage: React.FC = () => {
   useMount(() => {
     const token = localStorage.getItem('access_token');
     dispatch(actions.updateUserAuth(token));
-    getVideo();
   });
+
+  useEffect(() => {
+    getVideo();
+  }, []);
 
   const deleteVideo = () => {
     VideoService.deleteVideo(video._id)
       .then(() => {
-        toast.success('Success!', {
+        router.back();
+        toast.success(`🤙 ${video.name} deleted with success`, {
           autoClose: 3000,
           position: 'top-center',
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
           draggable: true,
-          onClose: () => router.back(),
         });
       })
       .catch(err => {

@@ -15,13 +15,21 @@ export class VideoService {
     return axios.get(`/video/${id}`);
   }
 
-  static createVideo({ image, name, sentence, semantic }: VideoParams): Promise<AxiosResponse> {
-    return axios.post('/video', {
-      image: image,
-      name: name,
-      sentence: sentence,
-      semantic: semantic,
-    });
+  static createVideo({ image, name, sentence, semantic }: VideoParams, id: string): Promise<AxiosResponse> {
+    return axios.post(
+      '/video',
+      {
+        image: image,
+        name: name,
+        sentence: sentence,
+        semantic: semantic,
+      },
+      {
+        headers: {
+          'user-id': id,
+        },
+      },
+    );
   }
 
   static deleteVideo(id: string): Promise<AxiosResponse> {

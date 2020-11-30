@@ -4,11 +4,11 @@ export interface Semantic {
   semantic: 'The history of' | 'What is' | 'Who is';
 }
 
-export interface VideoParams extends Semantic {
+export interface VideoParams {
   image?: string;
   name: string;
-  sentence?: string;
-  videoURL?: string;
+  semantic: Semantic;
+  sentence: string;
 }
 
 export interface VideoState {

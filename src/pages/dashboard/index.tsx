@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Empty from '../../assets/empty.svg';
 import { useMount, useUpdateEffect } from '../../hooks';
@@ -11,7 +11,6 @@ import { Container, EmptyList, ListCards } from '../../styles/pages/Dashboard';
 import { useRouter } from 'next/router';
 import { UserState } from '../../models/User';
 import { actions } from '../../store/states/auth';
-import { VideoService } from '../../services/Video';
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
@@ -25,14 +24,11 @@ const Dashboard: React.FC = () => {
   useMount(() => {
     const token = localStorage.getItem('access_token');
     dispatch(actions.updateUserAuth(token));
-    dispatch(getVideos(user._id));
   });
 
   useUpdateEffect(() => {
-    if (authenticated) {
-      dispatch(getVideos(user._id));
-    }
-  }, [authenticated]);
+    dispatch(getVideos(user._id));
+  }, [user]);
 
   useUpdateEffect(() => {
     if (status === 'LOADING') {
