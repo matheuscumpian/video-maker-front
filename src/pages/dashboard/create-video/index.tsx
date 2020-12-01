@@ -71,16 +71,17 @@ const CreateVideo: React.FC = () => {
         });
         router.push('/dashboard');
       })
-      .catch(err =>
-        toast.error(`😐 ${err.message}`, {
+      .catch(err => {
+        NProgress.done();
+        toast.error(`😐 ${err.data.message}`, {
           autoClose: 4000,
           position: 'top-center',
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
           draggable: true,
-        }),
-      );
+        });
+      });
   };
 
   const onClick = (item: string) => {

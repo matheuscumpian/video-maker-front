@@ -9,7 +9,7 @@ import { Video } from '../../../models/Video';
 import { useMount } from '../../../hooks';
 import { actions } from '../../../store/states/auth';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Header } from '../../../components';
 import {
   Container,
@@ -22,11 +22,15 @@ import {
   VideoDetails,
   VideoTitle,
 } from '../../../styles/pages/Video';
+import { getVideos } from '../../../store/states/video';
+import { UserState } from '../../../models/User';
+import { ApplicationState } from '../../../store';
 
 const VideoDetailsPage: React.FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [video, setVideo] = useState<Video>();
+  const { authenticated, user } = useSelector<ApplicationState, UserState>(state => state.auth);
 
   useMount(() => {
     const token = localStorage.getItem('access_token');
@@ -40,7 +44,7 @@ const VideoDetailsPage: React.FC = () => {
   const deleteVideo = () => {
     VideoService.deleteVideo(video._id)
       .then(() => {
-        router.back();
+        router.replace('/dashboard');
         toast.success(`🤙 ${video.name} deleted with success`, {
           autoClose: 3000,
           position: 'top-center',

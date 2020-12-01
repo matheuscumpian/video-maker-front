@@ -42,6 +42,7 @@ const postAuth = createAsyncThunk('Auth/postAuth', (payload: AuthParams, { rejec
       return user;
     })
     .catch(err => {
+      console.log(err);
       toast.error(`😥 ${err.data.message}`, {
         autoClose: 4000,
         position: 'top-center',
