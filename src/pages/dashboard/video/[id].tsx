@@ -134,7 +134,7 @@ const VideoDetailsPage: React.FC = () => {
             <Section>
               <SectionContent>{!video ? '' : video.semantic}</SectionContent>
             </Section>
-            <Button isValid={urlDownload.length > 0} loading={!urlDownload.length > 0}>
+            <Button isValid={!!urlDownload} loading={!urlDownload}>
               <DownloadIcon />
               <DownloadLink href={urlDownload} target='_blank'>
                 Download Video
