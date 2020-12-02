@@ -1,0 +1,95 @@
+[
+  {
+    "title": "Free Plan",
+    "monthPrice": 0,
+    "yearPrice": 0,
+    "features": [
+      {
+        "name": "5 Videos inclued",
+        "checked": true
+      },
+      {
+        "name": "2gb Storage",
+        "checked": true
+      },
+      {
+        "name": "Download videos",
+        "checked": true
+      },
+      {
+        "name": "Videos don't expire",
+        "checked": false
+      },
+      {
+        "name": "Support 24/7",
+        "checked": false
+      },
+      {
+        "name": "Early access to features",
+        "checked": false
+      }
+    ]
+  },
+  {
+    "title": "Video Maker Plus",
+    "monthPrice": 19.9,
+    "yearPrice": 270.0,
+    "features": [
+      {
+        "name": "30 Videos inclued",
+        "checked": true
+      },
+      {
+        "name": "20gb Storage",
+        "checked": true
+      },
+      {
+        "name": "Download videos",
+        "checked": true
+      },
+      {
+        "name": "Videos don't expire",
+        "checked": true
+      },
+      {
+        "name": "Support 24/7",
+        "checked": true
+      },
+      {
+        "name": "Early access to features",
+        "checked": false
+      }
+    ]
+  },
+  {
+    "title": "Video Maker Premium",
+    "monthPrice": 39.9,
+    "yearPrice": 400.0,
+    "features": [
+      {
+        "name": "Unlimited videos",
+        "checked": true
+      },
+      {
+        "name": "100gb Storage",
+        "checked": true
+      },
+      {
+        "name": "Download videos",
+        "checked": true
+      },
+      {
+        "name": "Videos don't expire",
+        "checked": true
+      },
+      {
+        "name": "Support 24/7",
+        "checked": true
+      },
+      {
+        "name": "Early access to features",
+        "checked": true
+      }
+    ]
+  }
+]
