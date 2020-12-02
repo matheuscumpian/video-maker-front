@@ -33,7 +33,7 @@
   {
     "title": "Video Maker Plus",
     "monthPrice": 19.9,
-    "yearPrice": 270.0,
+    "yearPrice": 270,
     "features": [
       {
         "name": "30 Videos inclued",
@@ -64,7 +64,7 @@
   {
     "title": "Video Maker Premium",
     "monthPrice": 39.9,
-    "yearPrice": 400.0,
+    "yearPrice": 400,
     "features": [
       {
         "name": "Unlimited videos",
