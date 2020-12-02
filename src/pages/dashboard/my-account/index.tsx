@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Check from '../../../assets/check.svg';
+import UnChecked from '../../../assets/unChecked.svg';
+import plansDetails from '../../../models/data-plans.json';
 import { Header } from '../../../components';
 import { useRouter } from 'next/router';
 import { actions } from '../../../store/states/auth';
@@ -8,6 +10,7 @@ import { useMount } from '../../../hooks';
 import { ApplicationState } from '../../../store';
 import { UserState } from '../../../models/User';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import {
   Button,
   Card,
@@ -20,22 +23,48 @@ import {
   SectionItem,
   SectionTitle,
 } from '../../../styles/pages/MyAccount';
+import { AuthService } from '../../../services/Auth';
 
-// How its supposed to be
-interface Plan {
-  isAvailable: boolean;
+interface planInterface {
+  title: string;
+  monthPrice: number;
+  yearPrice: number;
+  features: Feature[];
+}
+
+interface Feature {
   name: string;
+  checked: boolean;
 }
 
 const MyAccount: React.FC = () => {
   const { authenticated, user } = useSelector<ApplicationState, UserState>(state => state.auth);
   const dispatch = useDispatch();
+  const [plan, setPlan] = useState<planInterface>();
   const router = useRouter();
 
   useMount(() => {
     const token = localStorage.getItem('access_token');
     dispatch(actions.updateUserAuth(token));
   });
+
+  useEffect(() => {
+    if (authenticated) {
+      AuthService.getPlan(user._id)
+        .then(({ data }) => setPlan(plansDetails[data.plan]))
+        .catch(err => {
+          toast.error('😥 Parece que houve um problema', {
+            autoClose: 4000,
+            position: 'top-center',
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+          });
+          return err;
+        });
+    }
+  }, [user]);
 
   const onClickLogout = () => {
     router.push('/');
@@ -66,14 +95,24 @@ const MyAccount: React.FC = () => {
         <Card>
           <CardHeader>
             <CardTitle>Plano Atual</CardTitle>
-            <PlanPrice>$19.90</PlanPrice>
+            <PlanPrice>${plan ? plan.monthPrice.toFixed(2) : ''}</PlanPrice>
           </CardHeader>
-          <SectionTitle>Video Maker Plus</SectionTitle>
+          <SectionTitle>{plan ? plan.title : ''}</SectionTitle>
           <Section className='planSection'>
-            <SectionItem>
-              <Check />
-              Early access to features
-            </SectionItem>
+            {plan ? (
+              plan.features.map((item: Feature, index) => {
+                return (
+                  <SectionItem key={index}>
+                    {item.checked ? <Check /> : <UnChecked />}
+                    {item.name}
+                  </SectionItem>
+                );
+              })
+            ) : (
+              <SectionItem>
+                <Check />
+              </SectionItem>
+            )}
           </Section>
           <Button onClick={onClickChangePlan}>Change Plan</Button>
         </Card>

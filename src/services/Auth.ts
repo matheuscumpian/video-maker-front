@@ -29,6 +29,14 @@ export class AuthService {
     };
   }
 
+  static getPlan(id: string): Promise<AxiosResponse> {
+    return axios.get(`/user/${id}`);
+  }
+
+  static changePlan(id: string, plan: number): Promise<AxiosResponse> {
+    return axios.put(`/user/${id}`, { plan: plan });
+  }
+
   static post({ email, password }: AuthParams): Promise<AxiosResponse<AuthResponse>> {
     return axios.post('/auth', {
       email,

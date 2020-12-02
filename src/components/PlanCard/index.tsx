@@ -1,44 +1,41 @@
 import React from 'react';
 import Check from '../../assets/check.svg';
+import UnChecked from '../../assets/unChecked.svg';
 import { Button, Container, Feature, FeatureList, Header, Name, Price } from '../../styles/components/PlanCard';
 
+interface planInterface {
+  features: Feature[];
+  monthPrice: string;
+  onPressButton: any;
+  owned: boolean;
+  title: string;
+}
+
 interface Feature {
-  label: string;
-}
-
-interface PlanProps {
+  checked: boolean;
   name: string;
-  price: string;
-  yearPrice: string;
-  feature?: Feature[];
 }
 
-const PlanCard: React.FC<PlanProps> = ({ name, price, yearPrice }) => {
+const PlanCard: React.FC<planInterface> = ({ features, title, monthPrice, onPressButton, owned }) => {
   return (
     <Container>
       <Header>
-        <Name>{name}</Name>
-        <Price>{price}</Price>
+        <Name>{title}</Name>
+        <Price>{monthPrice}</Price>
       </Header>
       <FeatureList>
-        <Feature>
-          <Check />
-          Lorem ipsum
-        </Feature>
-        <Feature>
-          <Check /> Lorem ipsum
-        </Feature>
-        <Feature>
-          <Check /> Lorem ipsum
-        </Feature>
-        <Feature>
-          <Check /> Lorem ipsum
-        </Feature>
-        <Feature>
-          <Check /> Lorem ipsum
-        </Feature>
+        {features.map((item: Feature, index) => {
+          return (
+            <Feature key={index}>
+              {item.checked ? <Check /> : <UnChecked />}
+              {item.name}
+            </Feature>
+          );
+        })}
       </FeatureList>
-      <Button>Select Plan</Button>
+      <Button disabled={owned} onClick={onPressButton}>
+        {owned ? 'Your Plan' : 'Select Plan'}
+      </Button>
     </Container>
   );
 };

@@ -1,9 +1,13 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const Button = styled.button`
+interface ButtonProps {
+  disabled: boolean;
+}
+
+const Button = styled.button<ButtonProps>`
   align-self: flex-end;
   align-items: center;
-  background-color: ${props => props.theme.colors.secondary};
+  background-color: ${props => (props.disabled ? props.theme.colors.icon : props.theme.colors.secondary)};
   border: 0;
   border-radius: 4px;
   bottom: 16px;
@@ -25,7 +29,14 @@ const Button = styled.button`
   }
 
   :hover {
-    background-color: ${props => props.theme.colors.third};
+    ${props =>
+      !props.disabled
+        ? css`
+            background-color: ${props => props.theme.colors.third};
+          `
+        : css`
+            cursor: not-allowed;
+          `}
   }
 `;
 
