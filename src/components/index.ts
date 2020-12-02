@@ -1,8 +1,8 @@
-import Button from './Button/Button';
-import CardVideo from './CardVideo';
-import CardSkeleton from './CardVideo/CardSkeleton';
-import DragAndDrop from './DragAndDrop';
-import Hero from './Hero/Hero';
-import Input from './Input/Input';
-
-export { Button, CardVideo, CardSkeleton as CardVideoSkeleton, DragAndDrop, Input, Hero };
+export { Button } from './Button';
+export { CardVideo } from './CardVideo';
+export { CardVideoSkeleton } from './CardVideo/CardSkeleton';
+export { DragAndDrop } from './DragAndDrop';
+export { Header } from './Header';
+export { Hero } from './Hero/Hero';
+export { Input } from './Input';
+export { PlanCard } from './PlanCard';

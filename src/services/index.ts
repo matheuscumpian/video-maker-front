@@ -53,7 +53,6 @@ axios.interceptors.response.use(
         closeOnClick: true,
         pauseOnHover: false,
         draggable: true,
-        onClose: () => (window.location.href = `${process.env.DOMAIN}/login`),
       });
     }
 

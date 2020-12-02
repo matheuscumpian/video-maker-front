@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import NotFoundSVG from '../assets/404.svg';
 import styled from 'styled-components';
-import Header from '../components/Header';
+import { Header } from '../components';
 
 const NotFoundContainer = styled.div`
   display: flex;

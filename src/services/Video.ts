@@ -1,26 +1,42 @@
-// import axios from './index'
-import { VideoParams } from '../models/Video';
-import Axios, { AxiosResponse } from 'axios';
+import axios from './index';
+import { Video, VideoParams } from '../models/Video';
+import { AxiosResponse } from 'axios';
 
 export class VideoService {
-  static getVideos(): Promise<AxiosResponse<VideoParams[]>> {
-    return Axios.get('https://5fbbbec1c09c200016d410cd.mockapi.io/video');
-  }
-
-  static getVideoByID(id: number): Promise<AxiosResponse<VideoParams>> {
-    return Axios.get(`https://5fbbbec1c09c200016d410cd.mockapi.io/video/${id}`);
-  }
-
-  static createVideo({ image, title, sentence, semantic }: VideoParams): Promise<AxiosResponse> {
-    return Axios.post('https://5fbbbec1c09c200016d410cd.mockapi.io/video', {
-      image: image,
-      title: title,
-      sentence: sentence,
-      semantic: semantic,
+  static getVideos(id: string): Promise<AxiosResponse<VideoParams[]>> {
+    return axios.get('/video', {
+      headers: {
+        'user-id': id,
+      },
     });
   }
 
-  static deleteVideo(id: number): Promise<AxiosResponse> {
-    return Axios.delete(`https://5fbbbec1c09c200016d410cd.mockapi.io/video/${id}`);
+  static getVideoByID(id: string): Promise<AxiosResponse<Video>> {
+    return axios.get(`/video/${id}`);
+  }
+
+  static createVideo({ image, name, sentence, semantic }: VideoParams, id: string): Promise<AxiosResponse> {
+    return axios.post(
+      '/video',
+      {
+        image: image,
+        name: name,
+        sentence: sentence,
+        semantic: semantic,
+      },
+      {
+        headers: {
+          'user-id': id,
+        },
+      },
+    );
+  }
+
+  static deleteVideo(id: string): Promise<AxiosResponse> {
+    return axios.delete(`/video/${id}`);
+  }
+
+  static downloadVideo(id: string): Promise<AxiosResponse<any>> {
+    return axios.get(`/video/${id}/download`);
   }
 }

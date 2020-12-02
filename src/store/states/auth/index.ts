@@ -5,12 +5,12 @@ import jwt from 'jsonwebtoken';
 import { TypeStatus } from '../../../models';
 import NProgress from 'nprogress';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
 
 const INITIAL_STATE: UserState = {
   user: {
     email: '',
     name: '',
+    _id: '',
   },
   authenticated: false,
   error: '',
@@ -27,6 +27,7 @@ const postAuth = createAsyncThunk('Auth/postAuth', (payload: AuthParams, { rejec
       return {
         email: user.email,
         name: user.name,
+        _id: user._id,
       };
     })
     .then((user: User) => {
@@ -41,6 +42,7 @@ const postAuth = createAsyncThunk('Auth/postAuth', (payload: AuthParams, { rejec
       return user;
     })
     .catch(err => {
+      console.log(err);
       toast.error(`😥 ${err.data.message}`, {
         autoClose: 4000,
         position: 'top-center',
@@ -73,12 +75,13 @@ const updateUserAuth = (state: UserState, action: PayloadAction<string>) => {
     user: {
       email: user?.email,
       name: user?.name,
+      _id: user?._id,
     },
     authenticated: !!user,
   };
 };
 
-const logout = (state: UserState, action: PayloadAction<any>) => {
+const logout = (state: UserState): UserState => {
   localStorage.removeItem('access_token');
   return {
     ...state,

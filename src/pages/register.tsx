@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 
 import * as Yup from 'yup';
-import Button from '../components/Button/Button';
 import Head from 'next/head';
-import Header from '../components/Header';
-import Input from '../components/Input/Input';
 import Link from 'next/link';
 import RobotSVG from '../assets/robot.svg';
 import SignUpSVG from '../assets/signup.svg';
+import { Button, Header, Input } from '../components';
 import { useRouter } from 'next/router';
 import { Container } from '../styles/pages/Login';
 import { actions, postAuth } from '../store/states/auth';

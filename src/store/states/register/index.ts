@@ -26,7 +26,7 @@ const registerUser = createAsyncThunk('Register/registerUser', (payload: Registe
       return data;
     })
     .catch(err => {
-      toast.error(err.data.message, {
+      toast.error(`🔐 ${err.data}`, {
         autoClose: 4000,
         position: 'top-center',
         hideProgressBar: false,
