@@ -82,6 +82,7 @@ const Section = styled.div`
   background-color: ${props => props.theme.colors.lightBlack};
   border-radius: 4px;
   display: flex;
+  flex-direction: column;
   margin-bottom: 24px;
   padding: 1vw;
 `;
@@ -89,6 +90,7 @@ const Section = styled.div`
 const SectionItem = styled.div`
   align-items: center;
   display: flex;
+  margin-bottom: 4px;
 
   svg {
     margin-right: 12px;
