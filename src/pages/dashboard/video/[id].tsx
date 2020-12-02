@@ -1,12 +1,14 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import theme from '../../../styles/theme';
+import styled from 'styled-components';
 import DownloadIcon from '../../../assets/download.svg';
 import DeleteIcon from '../../../assets/trashcan.svg';
 import { useRouter } from 'next/router';
 import { VideoService } from '../../../services/Video';
 import { Video } from '../../../models/Video';
-import { useMount } from '../../../hooks';
+import { useMount, useUpdateEffect } from '../../../hooks';
 import { actions } from '../../../store/states/auth';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,11 +28,17 @@ import { getVideos } from '../../../store/states/video';
 import { UserState } from '../../../models/User';
 import { ApplicationState } from '../../../store';
 
+const DownloadLink = styled.a`
+  text-decoration: none;
+  color: inherit;
+`;
+
 const VideoDetailsPage: React.FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [video, setVideo] = useState<Video>();
   const { authenticated, user } = useSelector<ApplicationState, UserState>(state => state.auth);
+  const [urlDownload, setUrlDownload] = useState('');
 
   useMount(() => {
     const token = localStorage.getItem('access_token');
@@ -40,6 +48,14 @@ const VideoDetailsPage: React.FC = () => {
   useEffect(() => {
     getVideo();
   }, []);
+
+  useEffect(() => {
+    if (!video) return;
+
+    (VideoService.downloadVideo(video._id) as any).then(resp => {
+      setUrlDownload(resp.data.url);
+    });
+  }, [video]);
 
   const deleteVideo = () => {
     VideoService.deleteVideo(video._id)
@@ -118,9 +134,11 @@ const VideoDetailsPage: React.FC = () => {
             <Section>
               <SectionContent>{!video ? '' : video.semantic}</SectionContent>
             </Section>
-            <Button isValid>
+            <Button isValid={urlDownload.length > 0} loading={!urlDownload.length > 0}>
               <DownloadIcon />
-              Download Video
+              <DownloadLink href={urlDownload} target='_blank'>
+                Download Video
+              </DownloadLink>
             </Button>
           </DetailsContent>
           <Button color={theme.colors.error} isValid onClick={deleteVideo}>

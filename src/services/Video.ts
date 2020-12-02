@@ -35,4 +35,8 @@ export class VideoService {
   static deleteVideo(id: string): Promise<AxiosResponse> {
     return axios.delete(`/video/${id}`);
   }
+
+  static downloadVideo(id: string): Promise<AxiosResponse<any>> {
+    return axios.get(`/video/${id}/download`);
+  }
 }
