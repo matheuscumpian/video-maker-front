@@ -50,7 +50,7 @@ const VideoDetailsPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!video) return;
+    if (!video || video?.url === 'processing') return;
 
     (VideoService.downloadVideo(video._id) as any).then(resp => {
       setUrlDownload(resp.data.url);
@@ -134,7 +134,7 @@ const VideoDetailsPage: React.FC = () => {
             <Section>
               <SectionContent>{!video ? '' : video.semantic}</SectionContent>
             </Section>
-            <Button isValid={!!urlDownload} loading={!urlDownload}>
+            <Button isValid={!!urlDownload && video?.url !== 'processing'} loading={!urlDownload || video?.url === 'processing'}>
               <DownloadIcon />
               <DownloadLink href={urlDownload} target='_blank'>
                 Download Video
